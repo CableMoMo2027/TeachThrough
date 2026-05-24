@@ -62,13 +62,13 @@ cd C:\Users\Cable\Documents\code\tutor-finding\frontend
 ติดตั้ง dependencies
 
 ```powershell
-npm.cmd install
+npm install
 ```
 
 รัน development server
 
 ```powershell
-npm.cmd run dev
+npm run dev
 ```
 
 จากนั้นเปิดเว็บตาม URL ที่แสดงใน terminal เช่น
@@ -77,55 +77,36 @@ npm.cmd run dev
 http://localhost:3000
 ```
 
-## PowerShell Note
-
-ถ้าใช้ Windows PowerShell แล้วเจอ error ประมาณนี้:
-
-```text
-npm.ps1 cannot be loaded because running scripts is disabled on this system
-```
-
-ให้ใช้ `npm.cmd` แทน `npm` เช่น:
-
-```powershell
-npm.cmd install
-npm.cmd run dev
-npm.cmd run lint
-npm.cmd run typecheck
-```
-
-สาเหตุคือ PowerShell ไปเรียกไฟล์ `npm.ps1` ซึ่งติด Execution Policy ของ Windows แต่ `npm.cmd` เป็น command wrapper อีกตัวที่รันได้โดยไม่ชน policy นี้
-
 ## Available Scripts
 
 รันจากโฟลเดอร์ `frontend`
 
 ```powershell
-npm.cmd run dev
+npm run dev
 ```
 
 เปิด Nuxt development server
 
 ```powershell
-npm.cmd run build
+npm run build
 ```
 
 build โปรเจคสำหรับ production
 
 ```powershell
-npm.cmd run preview
+npm run preview
 ```
 
 preview production build
 
 ```powershell
-npm.cmd run lint
+npm run lint
 ```
 
 ตรวจ lint
 
 ```powershell
-npm.cmd run typecheck
+npm run typecheck
 ```
 
 ตรวจ TypeScript และ Nuxt types
