@@ -1,81 +1,61 @@
-# TeachThrough - Premium Tutor Finding Platform
+# TeachThrough
 
-เว็บสำหรับค้นหาและเลือกติวเตอร์ระดับพรีเมียม สร้างด้วย Nuxt.js และ Nuxt UI ภายใต้คอนเซปต์ "Cinematic Narrative & Intelligent Clarity" (Overdrive Edition) เพื่อสร้างประสบการณ์การใช้งานระดับ World-class
+แพลตฟอร์มสำหรับค้นหาและเชื่อมต่อกับติวเตอร์ระดับพรีเมียม พัฒนาด้วย Nuxt.js และ Nuxt UI ภายใต้แนวคิดการออกแบบที่มุ่งเน้นความสวยงามระดับภาพยนตร์และความชัดเจนในการใช้งาน (Cinematic Narrative & Intelligent Clarity)
 
-## ⚡ Overdrive UI Experience
+## ประสบการณ์การใช้งาน (UI/UX Experience)
 
-โปรเจกต์นี้ได้รับการอัปเกรดดีไซน์ในระดับสูงสุด โดยเน้นความประณีต (Crafted & Detailed) ในทุกจุดสัมผัส:
+โครงการนี้ได้รับการออกแบบและพัฒนาให้มีความละเอียดประณีตในทุกจุดสัมผัส เพื่อสร้างประสบการณ์การใช้งานที่มีคุณภาพสูง:
 
-- **Cinematic Narratives**: ใช้แอนิเมชันระดับภาพยนตร์ด้วย GSAP Parallax และ Character Reveals (Blur-to-Clear)
-- **Intelligent Clarity**: ระบบ Glassmorphism 2.0 พร้อมเอฟเฟกต์ "แสงตามเมาส์" (Light-aware cards) บนวัสดุโปร่งแสงพรีเมียม
-- **Apple-inspired Layout**: การจัดวางพื้นที่ว่าง (Spaciousness) ที่ลงตัว และ Typographic Hierarchy ที่ชัดเจน
-- **Seamless Navigation**: เปิดใช้งาน View Transitions API เพื่อการสลับหน้าเว็บที่ลื่นไหลไร้รอยต่อ
-- **Sophisticated Depth**: ระบบเงาแบบหลายชั้น (Premium Layered Shadows) และการใช้สีระบบ OKLCH ทั่วทั้งโปรเจกต์
+- **Cinematic Experience**: ระบบแอนิเมชันขั้นสูงโดยใช้ GSAP เพื่อสร้างเอฟเฟกต์ Parallax และการแสดงผลตัวอักษรแบบ Blur-to-Clear ที่นุ่มนวล
+- **Intelligent Interface**: การประยุกต์ใช้ Glassmorphism 2.0 ร่วมกับเอฟเฟกต์ Light-aware cards ที่ตอบสนองตามตำแหน่งของเมาส์บนวัสดุโปร่งแสง
+- **Modern Layout**: โครงสร้างแบบ Apple-inspired ที่เน้นความโปร่งสบาย (Spaciousness) และการจัดลำดับความสำคัญของเนื้อหาอย่างชัดเจน
+- **Seamless Navigation**: การสลับหน้าเว็บแบบไร้รอยต่อด้วย View Transitions API
+- **Visual Depth**: ระบบเงาแบบหลายชั้น (Premium Layered Shadows) และการจัดการสีด้วยระบบ OKLCH ทั่วทั้งโครงการ
 
-## 🚀 Key Features & Components
+## ส่วนประกอบหลัก (Core Components)
 
-- **BlurText**: แอนิเมชันคลี่ตัวอักษรจากเบลอไปสู่ความคมชัด สำหรับหัวข้อหลัก
-- **CountUp**: ระบบตัวเลขสถิติที่ "มีชีวิต" วิ่งขึ้นอย่างนุ่มนวลเมื่อเลื่อนมาถึง
-- **FadeContent**: แอนิเมชันทางเข้า (Entrance) ของเนื้อหาที่รองรับการเยื้องจังหวะ (Stagger)
-- **SplitText**: แอนิเมชันตัวอักษรแบบ 3D สำหรับเมนูนำทางและระบบเปลี่ยนภาษา
-- **Stable Brand Identity**: โลโก้ "TeachThrough" ถูกล็อคให้นิ่งสนิทและเป็นภาษาอังกฤษพรีเมียมเสมอ (v-once)
-- **Tutor Registration (Full-view)**: ฟอร์มสมัครติวเตอร์แบบยาว จัดกลุ่มข้อมูล 5 ขั้นตอน (01-05) พร้อมระบบ Scroll ทั่วทั้งหน้า
-- **Find Tutors**: ระบบกรองข้อมูลที่ทันสมัย พร้อมการ์ดติวเตอร์ที่มี Micro-interactions ขั้นสูง
+- **BlurText**: แอนิเมชันสำหรับหัวข้อหลักที่เน้นความหรูหราและความนุ่มนวล
+- **CountUp**: ระบบแสดงตัวเลขสถิติที่เคลื่อนไหวอย่างต่อเนื่องเมื่อเลื่อนหน้าจอมาถึง
+- **FadeContent**: แอนิเมชันการนำเสนอเนื้อหาที่รองรับระบบ Stagger เพื่อลำดับการรับรู้ที่ชัดเจน
+- **SplitText**: แอนิเมชันตัวอักษรแบบ 3D สำหรับเมนูนำทางและระบบสลับภาษา
+- **Stable Brand Identity**: การรักษาเอกลักษณ์ของแบรนด์ "TeachThrough" ให้คงที่และมีความเป็นมืออาชีพตลอดเวลา
+- **Tutor Registration**: แบบฟอร์มสมัครสมาชิกสำหรับติวเตอร์ที่รวบรวมข้อมูลสำคัญไว้ในหน้าเดียวเพื่อความสะดวกในการกรอกข้อมูล
 
-## 🛠 Tech Stack
+## เทคโนโลยีที่เลือกใช้ (Tech Stack)
 
-- **Nuxt 4 / Vue 3**: Framework ประสิทธิภาพสูงรุ่นล่าสุด
-- **Nuxt UI**: พื้นฐาน UI Component ที่ยืดหยุ่นและเป็นมาตรฐาน
-- **GSAP (GreenSock)**: ขุมพลังเบื้องหลังแอนิเมชันระดับมืออาชีพ (ScrollTrigger, Parallax)
-- **Tailwind CSS**: การจัดการสไตล์แบบ Utility-first
-- **TypeScript**: ระบบ Type ที่แข็งแกร่ง (พร้อม Custom GSAP Definitions)
-- **View Transitions API**: มาตรฐานใหม่สำหรับการเปลี่ยนหน้าเว็บที่ลื่นไหล
+- **Framework**: Nuxt 4 / Vue 3
+- **UI Library**: Nuxt UI
+- **Animation Engine**: GSAP (GreenSock Animation Platform)
+- **Styling**: Tailwind CSS
+- **Programming Language**: TypeScript
+- **Browser API**: View Transitions API
 
-## 📂 Project Structure
+## การเริ่มต้นใช้งาน (Getting Started)
 
-```text
-tutor-finding/
-└── frontend/
-    ├── app/
-    │   ├── assets/
-    │   │   ├── animations/     # แอนิเมชันขั้นสูง (ShinyText, etc.)
-    │   │   └── css/            # main.css พร้อมตัวแปร Premium Shadows/OKLCH
-    │   ├── components/         # BlurText, CountUp, FadeContent, SplitText, etc.
-    │   ├── pages/              # 14 หน้าเพจหลักที่ได้รับการขัดเกลาทุกเม็ด
-    │   ├── plugins/            # Centralized GSAP Plugin
-    │   └── app.vue             # Header/Navbar ดีไซน์พรีเมียม
-    ├── gsap.d.ts               # Custom TypeScript declarations สำหรับ GSAP
-    ├── nuxt.config.ts          # การตั้งค่า View Transitions & Transpile
-    └── package.json
-```
+การรันโครงการในเครื่องคอมพิวเตอร์ของคุณ:
 
-## 🏁 Getting Started
+1. เข้าไปยังโฟลเดอร์หลักของโปรเจกต์
+   ```powershell
+   cd frontend
+   ```
 
-เข้าไปที่ frontend ก่อนรันคำสั่งทุกครั้ง
+2. ติดตั้ง Dependencies
+   ```powershell
+   npm install
+   ```
 
-```powershell
-cd frontend
-```
+3. เริ่มต้นการทำงานในโหมดพัฒนา (Development Mode)
+   ```powershell
+   npm run dev
+   ```
 
-ติดตั้ง dependencies
+## สคริปต์ที่พร้อมใช้งาน (Available Scripts)
 
-```powershell
-npm install
-```
-
-รัน development server
-
-```powershell
-npm run dev
-```
-
-## 📜 Available Scripts
-
-- `npm run dev`: เปิด Nuxt development server
-- `npm run build`: Build สำหรับ production
-- `npm run preview`: Preview production build
-- `npm run lint`: ตรวจสอบความถูกต้องของโค้ด
-- `npm run typecheck`: ตรวจสอบ TypeScript (Zero errors implementation)
+- `npm run dev`: เริ่มต้น Development Server
+- `npm run build`: สร้างโปรเจกต์สำหรับ Production
+- `npm run preview`: พรีวิวโปรเจกต์ที่ทำการ Build แล้ว
+- `npm run lint`: ตรวจสอบมาตรฐานความถูกต้องของโค้ด
+- `npm run typecheck`: ตรวจสอบความถูกต้องของระบบ Type (TypeScript)
 
 ---
-*Elevating Education through Impeccable Design.*
+*ยกระดับการศึกษาด้วยการออกแบบที่เหนือระดับ (Impeccable Design)*
