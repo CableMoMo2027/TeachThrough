@@ -1,14 +1,41 @@
 <template>
   <div
-    class="flex justify-center items-center w-full h-full"
+    class="flex w-full justify-center"
     v-bind="$attrs"
   >
     <div
-      :class="`w-full max-w-md rounded-[1.25rem] border border-sky-100 bg-white p-6 shadow-[0_18px_45px_rgba(14,116,144,0.10)] ${stepCircleContainerClassName}`"
+      :class="`flex h-full min-h-0 w-full max-w-md flex-col rounded-[1.25rem] border border-sky-100 bg-white p-6 shadow-[0_18px_45px_rgba(14,116,144,0.10)] ${stepCircleContainerClassName}`"
     >
+      <div class="shrink-0">
+        <div class="mb-4 flex items-start justify-between gap-4">
+          <div class="min-w-0">
+            <p class="text-[11px] font-black uppercase tracking-widest text-primary/70">
+              {{ progressLabel || `Step ${currentStep} of ${totalSteps}` }}
+            </p>
+            <p
+              v-if="currentStepLabel"
+              class="mt-1 truncate text-base font-extrabold tracking-tight text-highlighted"
+            >
+              {{ currentStepLabel }}
+            </p>
+          </div>
+          <span class="shrink-0 rounded-full bg-sky-50 px-3 py-1 text-xs font-black text-primary ring-1 ring-sky-100">
+            {{ progressPercent }}%
+          </span>
+        </div>
+        <div class="mb-5 h-2 overflow-hidden rounded-full bg-sky-50 ring-1 ring-sky-100">
+          <Motion
+            as="div"
+            class="h-full rounded-full bg-primary"
+            :initial="{ width: 0 }"
+            :animate="{ width: `${progressPercent}%` }"
+            :transition="{ type: 'tween', duration: 0.22, ease: [0.16, 1, 0.3, 1] }"
+          />
+        </div>
+      </div>
+
       <div
-        :class="`flex items-center justify-center w-full ${stepContainerClassName}`"
-        :style="{ marginBottom: isCompleted ? '0' : '1rem' }"
+        :class="`flex shrink-0 items-center justify-center w-full ${stepContainerClassName}`"
       >
         <template
           v-for="(_, index) in stepsArray"
@@ -81,46 +108,36 @@
         </template>
       </div>
 
-      <Motion
-        as="div"
-        :class="`w-full ${contentClassName}`"
-        :style="{
-          position: 'relative',
-          overflow: 'hidden',
-          marginBottom: isCompleted ? '0' : '1rem'
-        }"
-        :animate="{ height: isCompleted ? 0 : `${parentHeight + 1}px` }"
-        :transition="{ type: 'spring', stiffness: 200, damping: 25, duration: 0.4 }"
+      <div
+        :class="`mt-4 min-h-0 flex-1 overflow-hidden ${contentClassName}`"
       >
         <AnimatePresence
           :initial="false"
-          mode="sync"
+          mode="wait"
           :custom="direction"
         >
           <Motion
             v-if="!isCompleted"
-            ref="containerRef"
             :key="currentStep"
             as="div"
+            class="h-full overflow-y-auto pr-2"
             :initial="getStepContentInitial()"
             :animate="{ x: '0%', opacity: 1 }"
             :exit="getStepContentExit()"
-            :transition="{ type: 'tween', stiffness: 300, damping: 30, duration: 0.4 }"
-            :style="{ position: 'absolute', left: 0, right: 0, top: 0 }"
+            :transition="{ type: 'tween', duration: 0.2, ease: [0.16, 1, 0.3, 1] }"
           >
             <div
               v-if="slots.default && slots.default()[currentStep - 1]"
-              ref="contentRef"
             >
               <component :is="slots.default()[currentStep - 1]" />
             </div>
           </Motion>
         </AnimatePresence>
-      </Motion>
+      </div>
 
       <div
         v-if="!isCompleted"
-        :class="`w-full ${footerClassName}`"
+        :class="`mt-5 w-full shrink-0 ${footerClassName}`"
       >
         <div :class="`flex w-full ${currentStep !== 1 ? 'justify-between' : 'justify-end'}`">
           <button
@@ -137,7 +154,7 @@
             :class="`flex cursor-pointer items-center justify-center rounded-full border-none bg-primary px-4 py-1.5 text-sm font-semibold tracking-tight text-white shadow-sm shadow-sky-200 transition-all duration-[350ms] hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50`"
             @click="isLastStep ? handleComplete() : handleNext()"
           >
-            {{ isLastStep ? 'Complete' : nextButtonText }}
+            {{ isLastStep ? completeButtonText : nextButtonText }}
           </button>
         </div>
       </div>
@@ -151,9 +168,6 @@ import {
   computed,
   useSlots,
   watch,
-  onMounted,
-  nextTick,
-  useTemplateRef,
   type VNode,
   type ButtonHTMLAttributes,
   type Component
@@ -177,9 +191,12 @@ interface StepperProps {
   nextButtonProps?: ButtonHTMLAttributes
   backButtonText?: string
   nextButtonText?: string
+  completeButtonText?: string
   disableStepIndicators?: boolean
   renderStepIndicator?: Component
   lockOnComplete?: boolean
+  stepLabels?: string[]
+  progressLabel?: string
 }
 
 const props = withDefaults(defineProps<StepperProps>(), {
@@ -194,22 +211,27 @@ const props = withDefaults(defineProps<StepperProps>(), {
   nextButtonProps: () => ({}),
   backButtonText: 'Back',
   nextButtonText: 'Continue',
+  completeButtonText: 'Complete',
   disableStepIndicators: false,
   renderStepIndicator: undefined,
-  lockOnComplete: true
+  lockOnComplete: true,
+  stepLabels: () => [],
+  progressLabel: ''
 })
 
 const slots = useSlots()
 const currentStep = ref(props.initialStep)
 const direction = ref(1)
 const isCompleted = ref(false)
-const parentHeight = ref(0)
-const containerRef = useTemplateRef<HTMLDivElement>('containerRef')
-const contentRef = useTemplateRef<HTMLDivElement>('contentRef')
 
 const stepsArray = computed(() => slots.default?.() || [])
 const totalSteps = computed(() => stepsArray.value.length)
 const isLastStep = computed(() => currentStep.value === totalSteps.value)
+const currentStepLabel = computed(() => props.stepLabels[currentStep.value - 1] || '')
+const progressPercent = computed(() => {
+  if (!totalSteps.value) return 0
+  return Math.round((currentStep.value / totalSteps.value) * 100)
+})
 
 const getStepStatus = (step: number) => {
   if (isCompleted.value || currentStep.value > step) return 'complete'
@@ -254,17 +276,6 @@ const handleCustomStepClick = (clicked: number) => {
   }
 }
 
-const measureHeight = () => {
-  nextTick(() => {
-    if (contentRef.value) {
-      const height = contentRef.value.offsetHeight
-      if (height > 0 && height !== parentHeight.value) {
-        parentHeight.value = height
-      }
-    }
-  })
-}
-
 const updateStep = (newStep: number) => {
   if (newStep >= 1 && newStep <= totalSteps.value) {
     currentStep.value = newStep
@@ -288,18 +299,8 @@ const handleComplete = () => {
 
 watch(currentStep, (newStep, oldStep) => {
   props.onStepChange?.(newStep)
-  if (newStep !== oldStep && !isCompleted.value) {
-    nextTick(measureHeight)
-  } else if (!props.lockOnComplete && isCompleted.value) {
+  if (newStep !== oldStep && !props.lockOnComplete && isCompleted.value) {
     isCompleted.value = false
-    nextTick(measureHeight)
   }
-})
-
-onMounted(() => {
-  if (props.initialStep !== 1) {
-    currentStep.value = props.initialStep
-  }
-  measureHeight()
 })
 </script>

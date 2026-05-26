@@ -1,104 +1,195 @@
 <script setup lang="ts">
-const { tr, pick } = useAppLocale()
+const { tr } = useAppLocale()
 
 const requirements = computed(() => [
-  tr('Personal information and contact details', 'ข้อมูลส่วนตัวและช่องทางติดต่อ'),
-  tr('Education background and teaching experience', 'ประวัติการศึกษาและประสบการณ์สอน'),
-  tr('Subject expertise, grade levels, and hourly pricing', 'วิชาที่เชี่ยวชาญ ระดับชั้น และราคาต่อชั่วโมง'),
-  tr('Certificates or supporting documents', 'ใบรับรองหรือเอกสารประกอบ'),
-  tr('Profile verification before publishing', 'ตรวจสอบโปรไฟล์ก่อนเผยแพร่')
+  {
+    title: tr('Personal identity', 'ยืนยันตัวตน'),
+    desc: tr('Secure verification of your credentials and background.', 'ตรวจสอบคุณวุฒิและประวัติอย่างปลอดภัย'),
+    icon: 'i-lucide-user-check'
+  },
+  {
+    title: tr('Academic Excellence', 'ความเป็นเลิศทางวิชาการ'),
+    desc: tr('Showcase your degrees, certifications, and expertise.', 'แสดงวุฒิการศึกษา ใบรับรอง และความเชี่ยวชาญของคุณ'),
+    icon: 'i-lucide-graduation-cap'
+  },
+  {
+    title: tr('Teaching Mastery', 'ทักษะการสอน'),
+    desc: tr('Detail your experience and unique pedagogical approach.', 'ระบุประสบการณ์และแนวทางการสอนที่เป็นเอกลักษณ์'),
+    icon: 'i-lucide-presentation'
+  },
+  {
+    title: tr('Profile Curation', 'การคัดกรองโปรไฟล์'),
+    desc: tr('Our team reviews every profile to maintain elite standards.', 'ทีมงานของเราตรวจสอบทุกโปรไฟล์เพื่อรักษามาตรฐานระดับสูง'),
+    icon: 'i-lucide-shield-check'
+  }
 ])
-
-const teachingFormats = computed(() => pick(
-  ['Online', 'Offline', 'Hybrid'],
-  ['ออนไลน์', 'ออนไซต์', 'ผสมผสาน']
-))
 </script>
 
 <template>
-  <UContainer class="py-12">
-    <div class="grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:items-start">
-      <div>
-        <UBadge
-          :label="tr('Teach on Platform', 'สอนบนแพลตฟอร์ม')"
-          variant="subtle"
-        />
-        <h1 class="mt-4 text-4xl font-semibold tracking-tight text-highlighted">
-          {{ tr('Apply as Tutor', 'สมัครเป็นติวเตอร์') }}
-        </h1>
-        <p class="mt-4 text-lg leading-8 text-muted">
-          {{ tr('Build a professional profile, show your credentials, and receive student requests after verification.', 'สร้างโปรไฟล์มืออาชีพ แสดงคุณวุฒิ และเริ่มรับคำขอจากนักเรียนหลังผ่านการตรวจสอบ') }}
-        </p>
-        <div class="mt-8 grid gap-3">
-          <div
-            v-for="item in requirements"
-            :key="item"
-            class="flex gap-3 rounded-lg border border-default bg-elevated p-4"
-          >
-            <UIcon
-              name="i-lucide-check-circle-2"
-              class="mt-0.5 size-5 shrink-0 text-primary"
+  <div class="min-h-screen bg-bg pb-20 pt-16">
+    <UContainer>
+      <div class="grid gap-16 lg:grid-cols-[1fr_1.1fr] lg:items-start">
+        <!-- Invitation Content -->
+        <div class="space-y-12">
+          <div v-reveal>
+            <UBadge
+              :label="tr('Join the Elite', 'เข้าร่วมกลุ่มระดับแนวหน้า')"
+              variant="subtle"
+              class="mb-6 rounded-full bg-brand-50 px-3 py-1 text-[11px] font-black uppercase tracking-widest text-brand-600 ring-1 ring-brand-100"
             />
-            <span class="text-toned">{{ item }}</span>
-          </div>
-        </div>
-      </div>
-
-      <UCard v-reveal>
-        <template #header>
-          <div>
-            <h2 class="text-2xl font-semibold text-highlighted">
-              {{ tr('Tutor Registration', 'สมัครติวเตอร์') }}
-            </h2>
-            <p class="mt-1 text-sm text-dimmed">
-              {{ tr('This MVP form captures the core profile fields.', 'แบบฟอร์ม MVP นี้เก็บข้อมูลสำคัญสำหรับโปรไฟล์ติวเตอร์') }}
+            <h1 class="text-5xl font-extrabold tracking-tight text-highlighted lg:text-6xl lg:leading-[1.1]">
+              {{ tr('Elevate your teaching career.', 'ยกระดับอาชีพการสอนของคุณ') }}
+            </h1>
+            <p class="mt-8 text-xl font-medium leading-relaxed text-muted">
+              {{ tr('TeachThrough is more than a marketplace. It’s a curated community for exceptional educators who value quality and professional growth.', 'TeachThrough เป็นมากกว่าตลาดวิชา แต่เป็นชุมชนที่คัดสรรมาเพื่อครูที่ยอดเยี่ยม ผู้ให้ความสำคัญกับคุณภาพและการเติบโตในวิชาชีพ') }}
             </p>
           </div>
-        </template>
 
-        <div class="grid gap-4">
-          <div class="grid gap-4 sm:grid-cols-2">
-            <UInput :placeholder="tr('First name', 'ชื่อ')" />
-            <UInput :placeholder="tr('Last name', 'นามสกุล')" />
+          <div class="grid gap-6 sm:grid-cols-2">
+            <div
+              v-for="(item, index) in requirements"
+              :key="item.title"
+              v-reveal="{ delay: index * 100 }"
+              class="premium-card rounded-[2rem] bg-white p-6 shadow-premium-md"
+            >
+              <div class="mb-4 grid size-12 place-items-center rounded-[1rem] bg-brand-50 text-brand-600 ring-1 ring-brand-100">
+                <UIcon :name="item.icon" class="size-6" />
+              </div>
+              <h3 class="text-lg font-bold text-highlighted">
+                {{ item.title }}
+              </h3>
+              <p class="mt-2 text-sm font-medium leading-relaxed text-dimmed">
+                {{ item.desc }}
+              </p>
+            </div>
           </div>
-          <UInput
-            icon="i-lucide-mail"
-            :placeholder="tr('Email address', 'อีเมล')"
-          />
-          <UInput
-            icon="i-lucide-phone"
-            :placeholder="tr('Phone number', 'เบอร์โทรศัพท์')"
-          />
-          <UTextarea
-            :placeholder="tr('Education and experience', 'การศึกษาและประสบการณ์')"
-            :rows="4"
-          />
-          <UInput
-            icon="i-lucide-book-open"
-            :placeholder="tr('Subjects, e.g. Math, English, Physics', 'วิชาที่สอน เช่น คณิต อังกฤษ ฟิสิกส์')"
-          />
-          <div class="grid gap-4 sm:grid-cols-2">
-            <USelect
-              :items="teachingFormats"
-              :placeholder="tr('Teaching format', 'รูปแบบการสอน')"
-            />
-            <UInput
-              icon="i-lucide-dollar-sign"
-              :placeholder="tr('Hourly rate', 'ราคาต่อชั่วโมง')"
-            />
+
+          <div v-reveal="{ delay: 400 }" class="rounded-[2.5rem] bg-accent-50 p-8 ring-1 ring-accent-100">
+            <div class="flex items-center gap-4">
+              <div class="flex -space-x-3">
+                <div v-for="i in 3" :key="i" class="size-10 rounded-full border-2 border-white bg-accent-200 shadow-sm" />
+              </div>
+              <p class="text-sm font-bold text-accent-700">
+                {{ tr('Join 1,200+ verified mentors today.', 'ร่วมกับที่ปรึกษากว่า 1,200 คนที่ผ่านการรับรองแล้ววันนี้') }}
+              </p>
+            </div>
           </div>
-          <UInput
-            icon="i-lucide-upload"
-            :placeholder="tr('Certificate upload placeholder', 'อัปโหลดใบรับรอง')"
-          />
-          <UButton
-            :label="tr('Submit Application', 'ส่งใบสมัคร')"
-            icon="i-lucide-send"
-            size="lg"
-            block
-          />
         </div>
-      </UCard>
-    </div>
-  </UContainer>
+
+        <!-- Application Form -->
+        <section v-reveal="{ delay: 200 }">
+          <UCard
+            class="premium-card overflow-hidden rounded-[3rem] bg-white p-2 shadow-premium-xl lg:p-6"
+            :ui="{ header: 'border-b-0 pb-0', body: 'pt-8' }"
+          >
+            <template #header>
+              <div class="text-center">
+                <h2 class="text-3xl font-extrabold tracking-tight text-highlighted">
+                  {{ tr('Begin Application', 'เริ่มการสมัคร') }}
+                </h2>
+                <p class="mt-3 text-base font-medium text-muted">
+                  {{ tr('Complete your profile to start your journey.', 'กรอกข้อมูลโปรไฟล์ของคุณเพื่อเริ่มต้น') }}
+                </p>
+              </div>
+            </template>
+
+            <div class="grid gap-6">
+              <div class="grid gap-6 sm:grid-cols-2">
+                <div class="space-y-1.5">
+                  <p class="px-1 text-[11px] font-black uppercase tracking-widest text-dimmed">
+                    {{ tr('First Name', 'ชื่อ') }}
+                  </p>
+                  <UInput :placeholder="tr('Enter first name', 'กรอกชื่อ')" class="premium-input" size="xl" />
+                </div>
+                <div class="space-y-1.5">
+                  <p class="px-1 text-[11px] font-black uppercase tracking-widest text-dimmed">
+                    {{ tr('Last Name', 'นามสกุล') }}
+                  </p>
+                  <UInput :placeholder="tr('Enter last name', 'กรอกนามสกุล')" class="premium-input" size="xl" />
+                </div>
+              </div>
+
+              <div class="space-y-1.5">
+                <p class="px-1 text-[11px] font-black uppercase tracking-widest text-dimmed">
+                  {{ tr('Email Address', 'อีเมล') }}
+                </p>
+                <UInput
+                  icon="i-lucide-mail"
+                  :placeholder="tr('you@example.com', 'you@example.com')"
+                  class="premium-input"
+                  size="xl"
+                />
+              </div>
+
+              <div class="space-y-1.5">
+                <p class="px-1 text-[11px] font-black uppercase tracking-widest text-dimmed">
+                  {{ tr('Expertise & Experience', 'ความเชี่ยวชาญและประสบการณ์') }}
+                </p>
+                <UTextarea
+                  :placeholder="tr('Describe your academic background and teaching history...', 'อธิบายประวัติการศึกษาและประสบการณ์สอนของคุณ...')"
+                  :rows="4"
+                  class="premium-input"
+                />
+              </div>
+
+              <div class="grid gap-6 sm:grid-cols-2">
+                <div class="space-y-1.5">
+                  <p class="px-1 text-[11px] font-black uppercase tracking-widest text-dimmed">
+                    {{ tr('Primary Subject', 'วิชาหลักที่สอน') }}
+                  </p>
+                  <UInput
+                    icon="i-lucide-book-open"
+                    :placeholder="tr('e.g. Mathematics', 'เช่น คณิตศาสตร์')"
+                    class="premium-input"
+                    size="xl"
+                  />
+                </div>
+                <div class="space-y-1.5">
+                  <p class="px-1 text-[11px] font-black uppercase tracking-widest text-dimmed">
+                    {{ tr('Hourly Rate', 'ราคาต่อชั่วโมง') }}
+                  </p>
+                  <UInput
+                    icon="i-lucide-dollar-sign"
+                    :placeholder="tr('Your rate', 'ราคาของคุณ')"
+                    class="premium-input"
+                    size="xl"
+                  />
+                </div>
+              </div>
+
+              <div class="space-y-1.5">
+                <p class="px-1 text-[11px] font-black uppercase tracking-widest text-dimmed">
+                  {{ tr('Credentials Upload', 'อัปโหลดหลักสูตรหรือใบรับรอง') }}
+                </p>
+                <div class="relative">
+                  <UInput
+                    icon="i-lucide-upload"
+                    :placeholder="tr('Select files...', 'เลือกไฟล์...')"
+                    class="premium-input"
+                    size="xl"
+                    readonly
+                  />
+                  <div class="absolute inset-0 cursor-pointer opacity-0" />
+                </div>
+              </div>
+
+              <div class="pt-4">
+                <UButton
+                  :label="tr('Submit for Review', 'ส่งข้อมูลเพื่อตรวจสอบ')"
+                  icon="i-lucide-send"
+                  size="xl"
+                  block
+                  class="rounded-full font-bold shadow-premium-lg transition-all hover:scale-[1.02] active:scale-[0.98]"
+                />
+              </div>
+
+              <p class="text-center text-xs font-medium text-dimmed">
+                {{ tr('By submitting, you agree to our professional standards.', 'การส่งข้อมูลแสดงว่าคุณยอมรับมาตรฐานวิชาชีพของเรา') }}
+              </p>
+            </div>
+          </UCard>
+        </section>
+      </div>
+    </UContainer>
+  </div>
 </template>

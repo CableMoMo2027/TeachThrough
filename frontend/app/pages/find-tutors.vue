@@ -1,6 +1,16 @@
 <script setup lang="ts">
 const { tr, pick } = useAppLocale()
 
+const mouseX = ref(50)
+const mouseY = ref(50)
+
+const handleMouseMove = (e: MouseEvent) => {
+  const { clientX, clientY, currentTarget } = e
+  const { left, top, width, height } = (currentTarget as HTMLElement).getBoundingClientRect()
+  mouseX.value = ((clientX - left) / width) * 100
+  mouseY.value = ((clientY - top) / height) * 100
+}
+
 const quickFilters = computed(() => [
   [tr('Top rated', 'คะแนนสูง'), 'i-lucide-star'],
   [tr('Available today', 'ว่างวันนี้'), 'i-lucide-calendar-check'],
@@ -31,7 +41,7 @@ const tutors = computed(() => [
     name: 'Maya Chen',
     title: tr('IB Math, SAT, and international school exam preparation', 'คณิตศาสตร์ IB, SAT และเตรียมสอบโรงเรียนนานาชาติ'),
     location: tr('Bangkok / Online', 'กรุงเทพ / ออนไลน์'),
-    price: '$28/hr',
+    price: '$28',
     rating: '4.98',
     reviews: '1.5K',
     lessons: tr('420 lessons', 'สอนแล้ว 420 ครั้ง'),
@@ -45,7 +55,7 @@ const tutors = computed(() => [
     name: 'Arun Patel',
     title: tr('Physics mentor for A-Level, engineering, and problem solving', 'ติวฟิสิกส์ A-Level วิศวกรรม และการแก้โจทย์'),
     location: tr('Online', 'ออนไลน์'),
-    price: '$32/hr',
+    price: '$32',
     rating: '4.95',
     reviews: '908',
     lessons: tr('315 lessons', 'สอนแล้ว 315 ครั้ง'),
@@ -59,7 +69,7 @@ const tutors = computed(() => [
     name: 'Sofia Rivera',
     title: tr('English writing coach for IELTS, essays, and interview prep', 'โค้ชเขียนภาษาอังกฤษ IELTS เรียงความ และเตรียมสัมภาษณ์'),
     location: tr('Chiang Mai / Online', 'เชียงใหม่ / ออนไลน์'),
-    price: '$24/hr',
+    price: '$24',
     rating: '4.97',
     reviews: '1.1K',
     lessons: tr('510 lessons', 'สอนแล้ว 510 ครั้ง'),
@@ -73,7 +83,7 @@ const tutors = computed(() => [
     name: 'Narin Kasem',
     title: tr('Thai language and primary school reading foundation', 'ภาษาไทยและพื้นฐานการอ่านระดับประถม'),
     location: tr('Bangkok', 'กรุงเทพ'),
-    price: '$18/hr',
+    price: '$18',
     rating: '4.91',
     reviews: '620',
     lessons: tr('280 lessons', 'สอนแล้ว 280 ครั้ง'),
@@ -87,7 +97,7 @@ const tutors = computed(() => [
     name: 'Lena Park',
     title: tr('Coding tutor for Scratch, Python, and beginner web projects', 'ติวเขียนโปรแกรม Scratch, Python และเว็บเบื้องต้น'),
     location: tr('Online', 'ออนไลน์'),
-    price: '$26/hr',
+    price: '$26',
     rating: '4.96',
     reviews: '740',
     lessons: tr('360 lessons', 'สอนแล้ว 360 ครั้ง'),
@@ -101,7 +111,7 @@ const tutors = computed(() => [
     name: 'Daniel Wong',
     title: tr('Chemistry and biology tutor for high school exam confidence', 'ติวเคมีและชีววิทยาเพื่อความมั่นใจก่อนสอบมัธยมปลาย'),
     location: tr('Bangkok / Hybrid', 'กรุงเทพ / ผสมผสาน'),
-    price: '$30/hr',
+    price: '$30',
     rating: '4.93',
     reviews: '512',
     lessons: tr('245 lessons', 'สอนแล้ว 245 ครั้ง'),
@@ -114,71 +124,80 @@ const tutors = computed(() => [
 </script>
 
 <template>
-  <div class="min-h-screen bg-[#f7fcff]">
-    <UContainer class="py-8">
-      <div class="mb-6 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
-        <div>
-          <UBadge
-            :label="tr('Tutor Directory', 'รายชื่อติวเตอร์')"
-            variant="subtle"
-            class="rounded-full bg-white text-primary ring-1 ring-sky-100"
+  <div class="min-h-screen bg-[#f8fbff] pb-20">
+    <UContainer class="py-12">
+      <!-- Apple-style Header -->
+      <header class="mb-12 text-center sm:text-left">
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <div class="space-y-1">
+            <UBadge
+              :label="tr('Marketplace', 'ตลาดวิชา')"
+              variant="subtle"
+              size="sm"
+              class="rounded-full bg-primary/10 px-3 font-bold text-primary"
+            />
+            <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+              {{ tr('Find Tutors', 'ค้นหาติวเตอร์') }}
+            </h1>
+          </div>
+          <UButton
+            to="/become-a-tutor"
+            :label="tr('Become a Tutor', 'สมัครเป็นติวเตอร์')"
+            size="xl"
+            variant="solid"
+            class="mt-4 rounded-full shadow-premium-md hover:shadow-premium-lg sm:mt-0"
           />
-          <h1 class="mt-3 text-4xl font-semibold tracking-tight text-slate-950">
-            {{ tr('Find Tutors', 'ค้นหาติวเตอร์') }}
-          </h1>
-          <p class="mt-3 max-w-2xl text-slate-600">
-            {{ tr('Browse tutor profiles like a marketplace. Compare expertise, response time, ratings, lessons, and starting price.', 'เลือกดูโปรไฟล์ติวเตอร์แบบ marketplace เปรียบเทียบความเชี่ยวชาญ เวลาตอบกลับ คะแนน จำนวนคาบเรียน และราคาเริ่มต้น') }}
-          </p>
         </div>
-        <UButton
-          to="/become-a-tutor"
-          :label="tr('Apply as Tutor', 'สมัครเป็นติวเตอร์')"
-          icon="i-lucide-user-plus"
-          color="neutral"
-          variant="outline"
-          class="bg-white"
-        />
-      </div>
+        <p class="mt-4 max-w-2xl text-lg font-medium leading-relaxed text-slate-500">
+          {{ tr('Exceptional education starting with the perfect match.', 'จุดเริ่มต้นของการเรียนรู้ที่ดี คือการเจอติวเตอร์ที่ใช่') }}
+        </p>
+      </header>
 
+      <!-- Premium Sticky Filter Bar - Glassmorphism 2.0 -->
       <section
         v-reveal
-        class="sticky top-[calc(var(--ui-header-height)+0.75rem)] z-20 mb-8 rounded-[1.5rem] border border-sky-100 bg-white/95 p-4 shadow-[0_18px_50px_rgba(14,116,144,0.10)] backdrop-blur"
+        class="glass-premium sticky top-[calc(var(--ui-header-height)+1rem)] z-30 mb-12 rounded-[2rem] p-5 shadow-premium-lg transition-all duration-500 hover:shadow-premium-xl"
       >
-        <div class="grid gap-3 xl:grid-cols-[1.2fr_.8fr_.8fr_.8fr_.75fr_auto]">
+        <div class="grid gap-4 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1fr_auto]">
           <UInput
             icon="i-lucide-search"
-            :placeholder="tr('Search tutors', 'ค้นหาติวเตอร์')"
-            size="lg"
+            class="premium-input"
+            :placeholder="tr('What do you want to learn?', 'คุณต้องการเรียนอะไร?')"
+            size="xl"
           />
           <USelect
+            class="premium-input"
             :items="subjectItems"
             :placeholder="tr('Subject', 'วิชา')"
-            size="lg"
+            size="xl"
           />
           <USelect
+            class="premium-input"
             :items="gradeItems"
-            :placeholder="tr('Grade level', 'ระดับชั้น')"
-            size="lg"
+            :placeholder="tr('Level', 'ระดับชั้น')"
+            size="xl"
           />
           <USelect
+            class="premium-input"
             :items="formatItems"
-            :placeholder="tr('Format', 'รูปแบบ')"
-            size="lg"
+            :placeholder="tr('Mode', 'รูปแบบ')"
+            size="xl"
           />
           <USelect
+            class="premium-input"
             :items="ratingItems"
             :placeholder="tr('Rating', 'คะแนน')"
-            size="lg"
+            size="xl"
           />
           <UButton
-            :label="tr('Filter', 'กรอง')"
-            icon="i-lucide-sliders-horizontal"
-            size="lg"
-            class="justify-center px-6"
+            :label="tr('Search', 'ค้นหา')"
+            size="xl"
+            class="justify-center rounded-full px-8 font-bold shadow-premium hover:scale-105"
           />
         </div>
 
-        <div class="mt-3 flex gap-2 overflow-x-auto pb-1">
+        <div class="mt-5 flex items-center gap-3 overflow-x-auto pb-1 scrollbar-hide">
+          <span class="shrink-0 text-xs font-bold uppercase tracking-widest text-slate-400">{{ tr('Filters', 'ตัวกรอง') }}:</span>
           <UButton
             v-for="filter in quickFilters"
             :key="filter[0]"
@@ -187,97 +206,120 @@ const tutors = computed(() => [
             color="neutral"
             variant="subtle"
             size="sm"
-            class="shrink-0 bg-sky-50 text-slate-700 ring-1 ring-sky-100"
+            class="shrink-0 rounded-full bg-white/50 font-semibold text-slate-600 ring-1 ring-slate-100 transition-all hover:bg-white hover:text-primary"
           />
         </div>
       </section>
 
-      <div class="mb-4 flex items-center justify-between gap-3 text-sm text-slate-700">
-        <p>{{ tr('Found 425 tutors', 'พบติวเตอร์ 425 คน') }}</p>
-        <p>{{ tr('Page 1 of 11', 'หน้า 1 จาก 11') }}</p>
+      <div class="mb-6 flex items-end justify-between px-2">
+        <div>
+          <h3 class="text-xl font-bold text-slate-900">
+            {{ tr('Available Tutors', 'ติวเตอร์ที่พร้อมสอน') }}
+          </h3>
+          <p class="text-sm font-medium text-slate-400">
+            {{ tr('425 verified mentors found', 'พบติวเตอร์ที่ผ่านการตรวจสอบ 425 คน') }}
+          </p>
+        </div>
+        <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400">
+          <span>Sort by</span>
+          <UIcon name="i-lucide-chevron-down" />
+        </div>
       </div>
 
-      <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+      <!-- Tutor Grid -->
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
         <NuxtLink
           v-for="tutor in tutors"
           :key="tutor.id"
           v-reveal
           :to="`/tutors/${tutor.id}`"
-          class="group overflow-hidden rounded-sm border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(14,116,144,0.14)]"
+          class="premium-card light-aware-card group relative flex flex-col overflow-hidden rounded-[2rem] bg-white ring-1 ring-slate-100 transition-all duration-500"
+          @mousemove="handleMouseMove"
+          :style="{ '--mouse-x': `${mouseX}%`, '--mouse-y': `${mouseY}%` }"
         >
-          <div class="flex items-center gap-3 p-3">
-            <img
-              :src="tutor.avatar"
-              :alt="tutor.name"
-              class="size-9 rounded-full object-cover"
-            >
-            <div class="min-w-0">
-              <p class="truncate text-sm font-semibold text-slate-950">
-                {{ tutor.name }}
-              </p>
-              <p class="text-xs text-slate-500">
-                {{ tutor.response }}
-              </p>
-            </div>
-          </div>
-
-          <div class="relative aspect-[4/2.7] overflow-hidden bg-sky-50">
+          <!-- Cover & Price -->
+          <div class="relative aspect-[4/3.2] overflow-hidden">
             <img
               :src="tutor.cover"
               :alt="tutor.title"
-              class="size-full object-cover transition duration-500 group-hover:scale-105"
+              class="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
             >
-            <div class="absolute left-3 top-3 rounded-md bg-white/90 px-2 py-1 text-xs font-semibold text-primary shadow-sm">
-              {{ tutor.location }}
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            
+            <!-- Quick Badge -->
+            <div class="absolute left-4 top-4 flex items-center gap-2">
+              <div class="flex h-8 items-center gap-1.5 rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-slate-900 shadow-premium backdrop-blur">
+                <UIcon name="i-lucide-map-pin" class="size-3.5 text-primary" />
+                {{ tutor.location }}
+              </div>
+            </div>
+
+            <!-- Floating Price -->
+            <div class="absolute bottom-4 right-4 translate-y-2 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+              <div class="rounded-2xl bg-white p-3 shadow-premium-lg">
+                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">{{ tr('Starts at', 'เริ่มต้น') }}</p>
+                <p class="text-xl font-black text-primary">{{ tutor.price }}<span class="text-xs font-medium text-slate-400">/hr</span></p>
+              </div>
             </div>
           </div>
 
-          <div class="grid min-h-52 gap-3 p-3">
-            <h2 class="line-clamp-2 text-base font-semibold leading-6 text-slate-950">
-              {{ tutor.title }}
-            </h2>
-
-            <div class="flex flex-wrap items-center gap-2 text-xs text-slate-500">
-              <span>{{ tutor.lessons }}</span>
-              <span class="text-slate-300">|</span>
-              <span class="inline-flex items-center gap-1">
-                <UIcon
-                  name="i-lucide-star"
-                  class="size-4 text-amber-500"
-                />
-                {{ tutor.rating }} ({{ tutor.reviews }})
-              </span>
-            </div>
-
-            <div class="flex flex-wrap gap-1.5">
-              <UBadge
-                v-for="subject in tutor.subjects"
-                :key="subject"
-                :label="subject"
-                color="primary"
-                variant="subtle"
-                class="rounded-md"
-              />
-            </div>
-
-            <div class="mt-auto flex items-end justify-between gap-3 pt-3">
+          <!-- Content -->
+          <div class="flex flex-1 flex-col p-6 pt-5">
+            <div class="mb-4 flex items-center justify-between relative z-10">
+              <div class="flex items-center gap-3">
+                <div class="relative">
+                  <img
+                    :src="tutor.avatar"
+                    :alt="tutor.name"
+                    class="size-10 rounded-full object-cover ring-2 ring-white shadow-premium"
+                  >
+                  <div class="absolute -right-0.5 -top-0.5 size-3 rounded-full border-2 border-white bg-green-500" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-900 group-hover:text-primary transition-colors">
+                    {{ tutor.name }}
+                  </h4>
+                  <p class="text-[11px] font-medium text-slate-400">
+                    {{ tutor.response }}
+                  </p>
+                </div>
+              </div>
               <UButton
-                :label="tr('Save', 'บันทึก')"
                 icon="i-lucide-heart"
                 color="neutral"
                 variant="ghost"
                 size="sm"
-                class="rounded-md"
+                class="rounded-full hover:bg-rose-50 hover:text-rose-500"
                 @click.prevent
               />
-              <div class="text-right">
-                <p class="text-xs text-slate-500">
-                  {{ tr('Starts at', 'เริ่มต้น') }}
-                </p>
-                <p class="text-lg font-bold text-primary">
-                  {{ tutor.price }}
-                </p>
+            </div>
+
+            <h2 class="mb-3 line-clamp-2 min-h-[3rem] text-lg font-bold leading-tight text-slate-900 group-hover:text-slate-800 relative z-10">
+              {{ tutor.title }}
+            </h2>
+
+            <!-- Stats Bar -->
+            <div class="mb-5 flex items-center gap-4 border-y border-slate-50 py-3 text-[11px] font-bold uppercase tracking-widest text-slate-400 relative z-10">
+              <div class="flex items-center gap-1.5">
+                <UIcon name="i-lucide-star" class="size-3.5 text-amber-500" />
+                <span class="text-slate-900">{{ tutor.rating }}</span>
+                <span>({{ tutor.reviews }})</span>
               </div>
+              <div class="size-1 rounded-full bg-slate-200" />
+              <div class="flex items-center gap-1.5">
+                <UIcon name="i-lucide-graduation-cap" class="size-3.5 text-primary" />
+                <span>{{ tutor.lessons }}</span>
+              </div>
+            </div>
+
+            <div class="mt-auto flex flex-wrap gap-2 relative z-10">
+              <UBadge
+                v-for="subject in tutor.subjects"
+                :key="subject"
+                :label="subject"
+                variant="subtle"
+                class="rounded-full bg-sky-50 px-3 py-1 text-[10px] font-bold text-slate-600 ring-1 ring-sky-100"
+              />
             </div>
           </div>
         </NuxtLink>
@@ -285,3 +327,13 @@ const tutors = computed(() => [
     </UContainer>
   </div>
 </template>
+
+<style scoped>
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+</style>

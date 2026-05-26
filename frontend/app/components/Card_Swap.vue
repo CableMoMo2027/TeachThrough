@@ -88,7 +88,7 @@ const emit = defineEmits<{
 const containerRef = useTemplateRef<HTMLDivElement>('containerRef')
 const cardRefs = ref<HTMLElement[]>([])
 const order = ref<number[]>([0, 1, 2])
-const tlRef = ref<gsap.core.Timeline | null>(null)
+const tlRef = ref<any>(null)
 const intervalRef = ref<number>()
 
 const handleCardClick = (index: number) => {

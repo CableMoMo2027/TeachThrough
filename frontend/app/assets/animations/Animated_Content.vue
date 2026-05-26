@@ -3,7 +3,7 @@ import { onMounted, onUnmounted, watch, useTemplateRef } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-gsap.registerPlugin(ScrollTrigger)
+type GsapScrollTrigger = ReturnType<typeof ScrollTrigger.getAll>[number]
 
 interface AnimatedContentProps {
   distance?: number
@@ -42,6 +42,8 @@ const containerRef = useTemplateRef<HTMLDivElement>('containerRef')
 onMounted(() => {
   const el = containerRef.value
   if (!el) return
+
+  gsap.registerPlugin(ScrollTrigger)
 
   const axis = props.direction === 'horizontal' ? 'x' : 'y'
   const offset = props.reverse ? -props.distance : props.distance
@@ -87,7 +89,9 @@ watch(
     const el = containerRef.value
     if (!el) return
 
-    ScrollTrigger.getAll().forEach(t => t.kill())
+    gsap.registerPlugin(ScrollTrigger)
+
+    ScrollTrigger.getAll().forEach((trigger: GsapScrollTrigger) => trigger.kill())
     gsap.killTweensOf(el)
 
     const axis = props.direction === 'horizontal' ? 'x' : 'y'
@@ -122,7 +126,7 @@ watch(
 onUnmounted(() => {
   const el = containerRef.value
   if (el) {
-    ScrollTrigger.getAll().forEach(t => t.kill())
+    ScrollTrigger.getAll().forEach((trigger: GsapScrollTrigger) => trigger.kill())
     gsap.killTweensOf(el)
   }
 })

@@ -31,12 +31,26 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2025-01-15',
 
+  experimental: {
+    viewTransition: true
+  },
+
+  alias: {
+    'gsap': 'gsap',
+    'gsap/ScrollTrigger': 'gsap/ScrollTrigger'
+  },
+
+  build: {
+    transpile: ['gsap']
+  },
+
   vite: {
     optimizeDeps: {
       include: [
         '@vue/devtools-core',
         '@vue/devtools-kit',
-        'gsap'
+        'gsap',
+        'gsap/ScrollTrigger'
       ]
     },
     server: {

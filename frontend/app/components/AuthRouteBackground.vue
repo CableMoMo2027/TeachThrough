@@ -3,7 +3,7 @@ import CardSwap from '~/components/Card_Swap.vue'
 </script>
 
 <template>
-  <section class="relative isolate h-[calc(100dvh-var(--ui-header-height))] overflow-hidden bg-muted">
+  <section class="relative isolate min-h-[calc(100dvh-var(--ui-header-height))] bg-muted">
     <div class="absolute inset-0 soft-grid opacity-80" />
     <div class="absolute -left-20 top-24 size-64 rounded-full bg-primary/10 blur-3xl sm:size-72" />
     <div class="absolute bottom-0 right-0 hidden size-[620px] bg-[radial-gradient(circle_at_center,var(--color-brand-100),transparent_64%)] opacity-80 lg:block" />
@@ -91,8 +91,16 @@ import CardSwap from '~/components/Card_Swap.vue'
       </ClientOnly>
     </div>
 
-    <UContainer class="relative z-10 grid h-full place-items-center px-4 py-3 sm:py-6">
-      <slot />
+    <UContainer class="auth-route-shell relative z-10 flex min-h-[calc(100dvh-var(--ui-header-height))] items-center justify-center px-4 py-6 sm:py-8">
+      <div class="w-full flex justify-center">
+        <slot />
+      </div>
     </UContainer>
   </section>
 </template>
+
+<style scoped>
+.auth-route-shell:has(.auth-long-form) {
+  align-items: flex-start;
+}
+</style>
