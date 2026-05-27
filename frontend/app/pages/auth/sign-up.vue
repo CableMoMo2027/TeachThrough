@@ -458,7 +458,7 @@ const handleNamedFileChange = (event: Event, target: TutorDocumentKey) => {
                   class="premium-input !rounded-sm sm:col-span-2 focus-within:!rounded-sm"
                   :ui="{
                     root: '!rounded-sm',
-                    base: '!rounded-sm'
+                    base: '!rounded-sm resize-none'
                   }"
                   :rows="3"
                   :placeholder="tr('Tutor experience *', 'ประสบการณ์สอน *')"

@@ -5,7 +5,7 @@ const { locale, isThai, toggleLocale } = useAppLocale()
 
 const copy = computed(() => isThai.value
   ? {
-      title: 'Tutorly - ค้นหาติวเตอร์ที่ไว้ใจได้',
+      title: 'TeachThrough - ค้นหาติวเตอร์ที่ไว้ใจได้',
       description: 'แพลตฟอร์มหาติวเตอร์มืออาชีพสำหรับนักเรียน ผู้ปกครอง และครูที่ผ่านการตรวจสอบ',
       nav: [
         { label: 'หน้าแรก', to: '/' },
@@ -16,7 +16,7 @@ const copy = computed(() => isThai.value
       ],
       signIn: 'เข้าสู่ระบบ',
       signUp: 'สมัครสมาชิก',
-      footerBrand: 'Tutorly',
+      footerBrand: 'TeachThrough',
       footerDescription: 'ช่วยให้ครอบครัวค้นหาติวเตอร์ที่ผ่านการตรวจสอบ พร้อมโปรไฟล์ชัดเจน ราคาโปร่งใส และเส้นทางการเรียนที่มั่นใจกว่าเดิม',
       platform: 'แพลตฟอร์ม',
       company: 'บริษัท',
@@ -27,7 +27,7 @@ const copy = computed(() => isThai.value
       policies: 'ข้อกำหนดและความเป็นส่วนตัว'
     }
   : {
-      title: 'Tutorly - Find trusted tutors',
+      title: 'TeachThrough - Find trusted tutors',
       description: 'A professional tutor discovery platform for students, parents, and verified educators.',
       nav: [
         { label: 'Home', to: '/' },
@@ -38,7 +38,7 @@ const copy = computed(() => isThai.value
       ],
       signIn: 'Sign In',
       signUp: 'Sign Up',
-      footerBrand: 'Tutorly',
+      footerBrand: 'TeachThrough',
       footerDescription: 'Helping families discover verified tutors with clear profiles, transparent pricing, and a smoother path to confident learning.',
       platform: 'Platform',
       company: 'Company',
