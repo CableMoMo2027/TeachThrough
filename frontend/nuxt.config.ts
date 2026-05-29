@@ -25,16 +25,6 @@ export default defineNuxtConfig({
     }
   },
 
-  routeRules: {
-    '/': { prerender: true }
-  },
-
-  compatibilityDate: '2025-01-15',
-
-  experimental: {
-    viewTransition: true
-  },
-
   alias: {
     'gsap': 'gsap',
     'gsap/ScrollTrigger': 'gsap/ScrollTrigger'
@@ -43,6 +33,16 @@ export default defineNuxtConfig({
   build: {
     transpile: ['gsap']
   },
+
+  routeRules: {
+    '/': { prerender: true }
+  },
+
+  experimental: {
+    viewTransition: true
+  },
+
+  compatibilityDate: '2025-01-15',
 
   vite: {
     optimizeDeps: {

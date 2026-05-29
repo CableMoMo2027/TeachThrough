@@ -455,11 +455,7 @@ const handleNamedFileChange = (event: Event, target: TutorDocumentKey) => {
               </div>
               <div class="grid gap-4 sm:grid-cols-3">
                 <UTextarea
-                  class="premium-input !rounded-sm sm:col-span-2 focus-within:!rounded-sm"
-                  :ui="{
-                    root: '!rounded-sm',
-                    base: '!rounded-sm resize-none'
-                  }"
+                  class="premium-input sm:col-span-2"
                   :rows="3"
                   :placeholder="tr('Tutor experience *', 'ประสบการณ์สอน *')"
                 />
@@ -494,8 +490,8 @@ const handleNamedFileChange = (event: Event, target: TutorDocumentKey) => {
               </h2>
             </div>
             <div class="grid gap-8">
-              <div class="grid gap-3 sm:grid-cols-3">
-                <label class="grid cursor-pointer gap-1.5 rounded-md border border-dashed border-sky-200 bg-sky-50/35 p-4 transition-all hover:border-primary/60 hover:bg-primary/5">
+              <div class="grid gap-4 sm:grid-cols-3">
+                <label class="grid cursor-pointer gap-2 rounded-2xl border border-dashed border-sky-200 bg-sky-50/35 p-6 transition-all hover:border-primary/60 hover:bg-primary/5">
                   <input
                     type="file"
                     class="sr-only"
@@ -504,7 +500,7 @@ const handleNamedFileChange = (event: Event, target: TutorDocumentKey) => {
                   <span class="flex items-center justify-between">
                     <UIcon
                       name="i-lucide-id-card"
-                      class="size-5 text-primary"
+                      class="size-6 text-primary"
                     />
                     <span class="text-[10px] font-black uppercase text-primary">Required</span>
                   </span>
@@ -512,7 +508,7 @@ const handleNamedFileChange = (event: Event, target: TutorDocumentKey) => {
                   <p class="text-[11px] text-muted leading-tight">Clear JPG, PNG, or PDF</p>
                 </label>
 
-                <label class="grid cursor-pointer gap-1.5 rounded-md border border-dashed border-sky-200 bg-white p-4 transition-all hover:border-primary/60 hover:bg-primary/5">
+                <label class="grid cursor-pointer gap-2 rounded-2xl border border-dashed border-sky-200 bg-white p-6 transition-all hover:border-primary/60 hover:bg-primary/5">
                   <input
                     type="file"
                     class="sr-only"
@@ -520,13 +516,13 @@ const handleNamedFileChange = (event: Event, target: TutorDocumentKey) => {
                   >
                   <UIcon
                     name="i-lucide-file-text"
-                    class="size-5 text-primary"
+                    class="size-6 text-primary"
                   />
                   <p class="mt-2 text-sm font-bold text-slate-700 truncate">{{ transcriptFileName || tr('Transcript', 'ใบเกรด / ทรานสคริปต์') }}</p>
                   <p class="text-[11px] text-muted leading-tight">Optional supporting document</p>
                 </label>
 
-                <label class="grid cursor-pointer gap-1.5 rounded-md border border-dashed border-sky-200 bg-white p-4 transition-all hover:border-primary/60 hover:bg-primary/5">
+                <label class="grid cursor-pointer gap-2 rounded-2xl border border-dashed border-sky-200 bg-white p-6 transition-all hover:border-primary/60 hover:bg-primary/5">
                   <input
                     type="file"
                     class="sr-only"
@@ -534,18 +530,18 @@ const handleNamedFileChange = (event: Event, target: TutorDocumentKey) => {
                   >
                   <UIcon
                     name="i-lucide-folder-check"
-                    class="size-5 text-primary"
+                    class="size-6 text-primary"
                   />
                   <p class="mt-2 text-sm font-bold text-slate-700 truncate">{{ portfolioFileName || tr('Portfolio', 'ผลงาน / แฟ้มสะสมงาน') }}</p>
                   <p class="text-[11px] text-muted leading-tight">Certificates or achievements</p>
                 </label>
               </div>
 
-              <div class="mx-auto grid w-full max-w-lg gap-5 text-center">
+              <div class="grid gap-6 max-w-2xl mx-auto w-full text-center">
                 <label class="inline-flex cursor-pointer items-start gap-3 text-left">
                   <input
                     type="checkbox"
-                    class="mt-1 size-3 accent-primary shrink-0"
+                    class="mt-1 size-5 accent-primary shrink-0"
                   >
                   <span class="text-sm font-medium leading-relaxed text-muted">
                     {{ tr('I agree to the tutor terms and confirm that the information is accurate. I understand that my profile will be verified before being public.', 'ฉันยอมรับเงื่อนไขสำหรับติวเตอร์และขอยืนยันว่าข้อมูลถูกต้อง ฉันเข้าใจว่าโปรไฟล์จะถูกตรวจสอบก่อนแสดงผลต่อสาธารณะ') }}
@@ -553,10 +549,9 @@ const handleNamedFileChange = (event: Event, target: TutorDocumentKey) => {
                 </label>
 
                 <UButton
-                  :label="tr('Submit Application', 'ส่งใบสมัครติวเตอร์')"
+                  :label="tr('Apply as Tutor', 'สมัครเป็นติวเตอร์')"
                   size="xl"
-                  block
-                  class="mt-2 shadow-premium-md hover:shadow-premium-lg"
+                  class="rounded-full px-16 py-6 text-lg font-black shadow-premium-md hover:shadow-premium-lg transition-all"
                 />
               </div>
             </div>
@@ -577,27 +572,27 @@ const handleNamedFileChange = (event: Event, target: TutorDocumentKey) => {
 
         <USeparator :label="tr('or continue with', 'หรือสมัครด้วย')" />
 
-        <div class="grid gap-2 sm:grid-cols-3">
+        <div class="mx-auto grid w-full max-w-lg gap-2 sm:grid-cols-3">
           <UButton
             label="Google"
             icon="i-simple-icons-google"
             color="neutral"
             variant="outline"
-            class="rounded-full"
+            class="w-full justify-center rounded-full"
           />
           <UButton
             label="Apple"
             icon="i-simple-icons-apple"
             color="neutral"
             variant="outline"
-            class="rounded-full"
+            class="w-full justify-center rounded-full"
           />
           <UButton
             label="Facebook"
             icon="i-simple-icons-facebook"
             color="neutral"
             variant="outline"
-            class="rounded-full"
+            class="w-full justify-center rounded-full"
           />
         </div>
       </div>

@@ -234,8 +234,8 @@ const tutors = computed(() => [
           v-reveal
           :to="`/tutors/${tutor.id}`"
           class="premium-card light-aware-card group relative flex flex-col overflow-hidden rounded-[2rem] bg-white ring-1 ring-slate-100 transition-all duration-500"
-          @mousemove="handleMouseMove"
           :style="{ '--mouse-x': `${mouseX}%`, '--mouse-y': `${mouseY}%` }"
+          @mousemove="handleMouseMove"
         >
           <!-- Cover & Price -->
           <div class="relative aspect-[4/3.2] overflow-hidden">
@@ -245,11 +245,14 @@ const tutors = computed(() => [
               class="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
             >
             <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-            
+
             <!-- Quick Badge -->
             <div class="absolute left-4 top-4 flex items-center gap-2">
               <div class="flex h-8 items-center gap-1.5 rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-slate-900 shadow-premium backdrop-blur">
-                <UIcon name="i-lucide-map-pin" class="size-3.5 text-primary" />
+                <UIcon
+                  name="i-lucide-map-pin"
+                  class="size-3.5 text-primary"
+                />
                 {{ tutor.location }}
               </div>
             </div>
@@ -301,13 +304,19 @@ const tutors = computed(() => [
             <!-- Stats Bar -->
             <div class="mb-5 flex items-center gap-4 border-y border-slate-50 py-3 text-[11px] font-bold uppercase tracking-widest text-slate-400 relative z-10">
               <div class="flex items-center gap-1.5">
-                <UIcon name="i-lucide-star" class="size-3.5 text-amber-500" />
+                <UIcon
+                  name="i-lucide-star"
+                  class="size-3.5 text-amber-500"
+                />
                 <span class="text-slate-900">{{ tutor.rating }}</span>
                 <span>({{ tutor.reviews }})</span>
               </div>
               <div class="size-1 rounded-full bg-slate-200" />
               <div class="flex items-center gap-1.5">
-                <UIcon name="i-lucide-graduation-cap" class="size-3.5 text-primary" />
+                <UIcon
+                  name="i-lucide-graduation-cap"
+                  class="size-3.5 text-primary"
+                />
                 <span>{{ tutor.lessons }}</span>
               </div>
             </div>

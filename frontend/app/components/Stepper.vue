@@ -124,7 +124,7 @@
             :initial="getStepContentInitial()"
             :animate="{ x: '0%', opacity: 1 }"
             :exit="getStepContentExit()"
-            :transition="{ type: 'tween', duration: 0.2, ease: [0.16, 1, 0.3, 1] }"
+            :transition="{ type: 'tween', duration: contentTransitionDuration, ease: [0.16, 1, 0.3, 1] }"
           >
             <div
               v-if="slots.default && slots.default()[currentStep - 1]"
@@ -197,6 +197,8 @@ interface StepperProps {
   lockOnComplete?: boolean
   stepLabels?: string[]
   progressLabel?: string
+  contentTransitionDuration?: number
+  contentExitDistance?: string
 }
 
 const props = withDefaults(defineProps<StepperProps>(), {
@@ -216,7 +218,9 @@ const props = withDefaults(defineProps<StepperProps>(), {
   renderStepIndicator: undefined,
   lockOnComplete: true,
   stepLabels: () => [],
-  progressLabel: ''
+  progressLabel: '',
+  contentTransitionDuration: 0.2,
+  contentExitDistance: '50%'
 })
 
 const slots = useSlots()
@@ -256,7 +260,7 @@ const getStepContentInitial = () => ({
 })
 
 const getStepContentExit = () => ({
-  x: direction.value >= 0 ? '-50%' : '50%',
+  x: direction.value >= 0 ? `-${props.contentExitDistance}` : props.contentExitDistance,
   opacity: 0
 })
 

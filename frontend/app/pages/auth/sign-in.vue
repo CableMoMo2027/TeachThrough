@@ -20,7 +20,7 @@ const { tr } = useAppLocale()
         </p>
       </div>
     </template>
-    
+
     <div class="grid gap-5">
       <div class="grid gap-4">
         <UInput

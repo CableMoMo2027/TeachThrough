@@ -88,6 +88,7 @@ const emit = defineEmits<{
 const containerRef = useTemplateRef<HTMLDivElement>('containerRef')
 const cardRefs = ref<HTMLElement[]>([])
 const order = ref<number[]>([0, 1, 2])
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const tlRef = ref<any>(null)
 const intervalRef = ref<number>()
 

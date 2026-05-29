@@ -27,7 +27,10 @@ const topicItems = computed(() => pick(
           <div class="mt-12 space-y-8">
             <div class="flex items-center gap-6">
               <div class="flex size-12 items-center justify-center rounded-2xl bg-brand-50 text-brand-500">
-                <UIcon name="i-lucide-mail" class="size-6" />
+                <UIcon
+                  name="i-lucide-mail"
+                  class="size-6"
+                />
               </div>
               <div>
                 <p class="text-sm font-semibold text-muted uppercase tracking-wider">
@@ -41,7 +44,10 @@ const topicItems = computed(() => pick(
 
             <div class="flex items-center gap-6">
               <div class="flex size-12 items-center justify-center rounded-2xl bg-accent-50 text-accent-500">
-                <UIcon name="i-lucide-clock" class="size-6" />
+                <UIcon
+                  name="i-lucide-clock"
+                  class="size-6"
+                />
               </div>
               <div>
                 <p class="text-sm font-semibold text-muted uppercase tracking-wider">
@@ -55,7 +61,10 @@ const topicItems = computed(() => pick(
 
             <div class="flex items-center gap-6">
               <div class="flex size-12 items-center justify-center rounded-2xl bg-trust-50 text-trust-500">
-                <UIcon name="i-lucide-message-circle" class="size-6" />
+                <UIcon
+                  name="i-lucide-message-circle"
+                  class="size-6"
+                />
               </div>
               <div>
                 <p class="text-sm font-semibold text-muted uppercase tracking-wider">
@@ -74,49 +83,81 @@ const topicItems = computed(() => pick(
           class="premium-card rounded-[2.5rem] bg-white shadow-premium-xl"
           :ui="{ body: 'p-8 sm:p-12' }"
         >
-          <h2 class="text-2xl font-bold text-highlighted mb-8">
-            {{ tr('Send a Message', 'ส่งข้อความหาเรา') }}
-          </h2>
-          <div class="grid gap-6">
-            <div class="grid gap-6 sm:grid-cols-2">
-              <UInput
-                class="premium-input"
-                size="lg"
-                :placeholder="tr('First Name', 'ชื่อ')"
-              />
-              <UInput
-                class="premium-input"
-                size="lg"
-                :placeholder="tr('Last Name', 'นามสกุล')"
-              />
-            </div>
-            <UInput
-              class="premium-input"
-              icon="i-lucide-mail"
-              size="lg"
-              :placeholder="tr('Email address', 'อีเมล')"
-            />
-            <USelect
-              class="premium-input"
-              size="lg"
-              icon="i-lucide-help-circle"
-              :items="topicItems"
-              :placeholder="tr('What are you looking for?', 'หัวข้อที่ต้องการติดต่อ')"
-            />
-            <UTextarea
-              class="premium-input"
-              size="lg"
-              :placeholder="tr('Tell us more about your needs...', 'บอกรายละเอียดที่ให้เราช่วย...')"
-              :rows="5"
-            />
-            <UButton
-              :label="tr('Send Inquiry', 'ส่งคำขอติดต่อ')"
-              icon="i-lucide-send"
-              size="xl"
-              block
-              class="rounded-full shadow-premium-md"
-            />
+          <div class="mb-10">
+            <h2 class="text-2xl font-black text-highlighted">
+              {{ tr('Send a Message', 'ส่งข้อความหาเรา') }}
+            </h2>
+            <p class="text-sm font-medium text-muted mt-2">
+              {{ tr('Complete the steps to send your inquiry.', 'กรอกข้อมูลตามขั้นตอนเพื่อส่งคำขอติดต่อ') }}
+            </p>
           </div>
+
+          <Stepper
+            step-circle-container-class-name="!max-w-none !rounded-[1rem] !bg-slate-50 !p-4 !shadow-none !border-none !mb-8"
+            :back-button-text="tr('Back', 'ย้อนกลับ')"
+            :next-button-text="tr('Next', 'ต่อไป')"
+            :complete-button-text="tr('Send Message', 'ส่งข้อความ')"
+            :lock-on-complete="false"
+          >
+            <!-- Step 1: Contact Info -->
+            <div class="grid gap-6">
+              <div class="mb-2">
+                <h3 class="text-lg font-bold text-highlighted">
+                  {{ tr('Your Details', 'ข้อมูลของคุณ') }}
+                </h3>
+                <p class="text-xs text-muted">
+                  How can we address you?
+                </p>
+              </div>
+              <div class="grid gap-4">
+                <div class="grid gap-4 sm:grid-cols-2">
+                  <UInput
+                    class="premium-input"
+                    size="lg"
+                    :placeholder="tr('First Name', 'ชื่อ')"
+                  />
+                  <UInput
+                    class="premium-input"
+                    size="lg"
+                    :placeholder="tr('Last Name', 'นามสกุล')"
+                  />
+                </div>
+                <UInput
+                  class="premium-input"
+                  icon="i-lucide-mail"
+                  size="lg"
+                  :placeholder="tr('Email address', 'อีเมล')"
+                />
+              </div>
+            </div>
+
+            <!-- Step 2: Message -->
+            <div class="grid gap-6">
+              <div class="mb-2">
+                <h3 class="text-lg font-bold text-highlighted">
+                  {{ tr('The Message', 'รายละเอียด') }}
+                </h3>
+                <p class="text-xs text-muted">
+                  What do you need help with?
+                </p>
+              </div>
+              <div class="grid gap-4">
+                <USelect
+                  class="premium-input"
+                  size="lg"
+                  icon="i-lucide-help-circle"
+                  :items="topicItems"
+                  :placeholder="tr('Topic', 'หัวข้อ')"
+                />
+                <UTextarea
+                  class="premium-input"
+                  size="lg"
+                  :placeholder="tr('Tell us more...', 'อธิบายรายละเอียด...')"
+                  :rows="4"
+                />
+              </div>
+            </div>
+          </Stepper>
         </UCard>
       </div>
 
@@ -131,7 +172,7 @@ const topicItems = computed(() => pick(
         <div class="grid gap-6 md:grid-cols-3">
           <div
             v-reveal
-            class="premium-card rounded-[2rem] bg-white p-8"
+            class="premium-card rounded-[2rem] bg-white p-8 shadow-premium-md"
           >
             <h3 class="text-lg font-bold text-highlighted">
               {{ tr('Are tutors verified?', 'ติวเตอร์ผ่านการตรวจสอบไหม?') }}
@@ -143,7 +184,7 @@ const topicItems = computed(() => pick(
 
           <div
             v-reveal
-            class="premium-card rounded-[2rem] bg-white p-8"
+            class="premium-card rounded-[2rem] bg-white p-8 shadow-premium-md"
             style="--reveal-delay: 100ms"
           >
             <h3 class="text-lg font-bold text-highlighted">
@@ -156,7 +197,7 @@ const topicItems = computed(() => pick(
 
           <div
             v-reveal
-            class="premium-card rounded-[2rem] bg-white p-8"
+            class="premium-card rounded-[2rem] bg-white p-8 shadow-premium-md"
             style="--reveal-delay: 200ms"
           >
             <h3 class="text-lg font-bold text-highlighted">

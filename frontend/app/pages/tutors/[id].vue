@@ -39,11 +39,11 @@ const schedule = computed(() => pick(
         <!-- Main Content -->
         <main class="space-y-8">
           <!-- Profile Header Card -->
-          <section 
-            v-reveal 
+          <section
+            v-reveal
             class="premium-card light-aware-card overflow-hidden rounded-[2.5rem] bg-white"
-            @mousemove="handleMouseMove"
             :style="{ '--mouse-x': `${mouseX}%`, '--mouse-y': `${mouseY}%` }"
+            @mousemove="handleMouseMove"
           >
             <div class="grid md:grid-cols-[280px_1fr]">
               <div class="relative aspect-square md:aspect-auto">
@@ -54,7 +54,7 @@ const schedule = computed(() => pick(
                 >
                 <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent md:hidden" />
               </div>
-              
+
               <div class="flex flex-col p-8 lg:p-10">
                 <div class="flex flex-wrap gap-2">
                   <UBadge
@@ -78,31 +78,51 @@ const schedule = computed(() => pick(
 
                 <div class="mt-8 grid grid-cols-2 gap-6 border-t border-border-muted pt-8 sm:grid-cols-4">
                   <div class="space-y-1">
-                    <p class="text-[10px] font-black uppercase tracking-widest text-dimmed">{{ tr('Rating', 'คะแนน') }}</p>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-dimmed">
+                      {{ tr('Rating', 'คะแนน') }}
+                    </p>
                     <div class="flex items-center gap-1.5 font-bold text-highlighted">
-                      <UIcon name="i-lucide-star" class="size-4 text-amber-500 fill-current" />
+                      <UIcon
+                        name="i-lucide-star"
+                        class="size-4 text-amber-500 fill-current"
+                      />
                       <span>{{ tutor.rating }}</span>
                       <span class="text-xs font-medium text-dimmed">({{ tutor.reviews }})</span>
                     </div>
                   </div>
                   <div class="space-y-1">
-                    <p class="text-[10px] font-black uppercase tracking-widest text-dimmed">{{ tr('Lessons', 'การสอน') }}</p>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-dimmed">
+                      {{ tr('Lessons', 'การสอน') }}
+                    </p>
                     <div class="flex items-center gap-1.5 font-bold text-highlighted">
-                      <UIcon name="i-lucide-graduation-cap" class="size-4 text-brand-500" />
+                      <UIcon
+                        name="i-lucide-graduation-cap"
+                        class="size-4 text-brand-500"
+                      />
                       <span>{{ tutor.sessions }}</span>
                     </div>
                   </div>
                   <div class="space-y-1">
-                    <p class="text-[10px] font-black uppercase tracking-widest text-dimmed">{{ tr('Location', 'สถานที่') }}</p>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-dimmed">
+                      {{ tr('Location', 'สถานที่') }}
+                    </p>
                     <div class="flex items-center gap-1.5 font-bold text-highlighted">
-                      <UIcon name="i-lucide-map-pin" class="size-4 text-brand-500" />
+                      <UIcon
+                        name="i-lucide-map-pin"
+                        class="size-4 text-brand-500"
+                      />
                       <span class="truncate">{{ tutor.location }}</span>
                     </div>
                   </div>
                   <div class="space-y-1">
-                    <p class="text-[10px] font-black uppercase tracking-widest text-dimmed">{{ tr('Response', 'การตอบกลับ') }}</p>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-dimmed">
+                      {{ tr('Response', 'การตอบกลับ') }}
+                    </p>
                     <div class="flex items-center gap-1.5 font-bold text-highlighted">
-                      <UIcon name="i-lucide-clock" class="size-4 text-brand-500" />
+                      <UIcon
+                        name="i-lucide-clock"
+                        class="size-4 text-brand-500"
+                      />
                       <span class="truncate">{{ tutor.response }}</span>
                     </div>
                   </div>
@@ -113,11 +133,11 @@ const schedule = computed(() => pick(
 
           <!-- Expertise & Bio -->
           <div class="grid gap-8 md:grid-cols-2">
-            <section 
-              v-reveal="{ delay: 100 }" 
+            <section
+              v-reveal="{ delay: 100 }"
               class="premium-card light-aware-card rounded-[2.5rem] bg-white p-8 lg:p-10"
-              @mousemove="handleMouseMove"
               :style="{ '--mouse-x': `${mouseX}%`, '--mouse-y': `${mouseY}%` }"
+              @mousemove="handleMouseMove"
             >
               <h2 class="text-2xl font-extrabold tracking-tight text-highlighted">
                 {{ tr('Expertise', 'ความเชี่ยวชาญ') }}
@@ -133,20 +153,27 @@ const schedule = computed(() => pick(
                 />
               </div>
               <div class="mt-8 space-y-4">
-                <div v-for="i in 3" :key="i" class="flex items-center gap-3">
+                <div
+                  v-for="i in 3"
+                  :key="i"
+                  class="flex items-center gap-3"
+                >
                   <div class="grid size-6 place-items-center rounded-full bg-brand-50 text-brand-600 ring-1 ring-brand-100">
-                    <UIcon name="i-lucide-check" class="size-3.5" />
+                    <UIcon
+                      name="i-lucide-check"
+                      class="size-3.5"
+                    />
                   </div>
                   <span class="text-sm font-medium text-toned">{{ tr('Advanced curriculum mastery', 'เชี่ยวชาญหลักสูตรระดับสูง') }}</span>
                 </div>
               </div>
             </section>
 
-            <section 
-              v-reveal="{ delay: 200 }" 
+            <section
+              v-reveal="{ delay: 200 }"
               class="premium-card light-aware-card rounded-[2.5rem] bg-white p-8 lg:p-10"
-              @mousemove="handleMouseMove"
               :style="{ '--mouse-x': `${mouseX}%`, '--mouse-y': `${mouseY}%` }"
+              @mousemove="handleMouseMove"
             >
               <h2 class="text-2xl font-extrabold tracking-tight text-highlighted">
                 {{ tr('About Me', 'เกี่ยวกับฉัน') }}
@@ -164,7 +191,10 @@ const schedule = computed(() => pick(
           </div>
 
           <!-- Reviews Section -->
-          <section v-reveal="{ delay: 300 }" class="premium-card rounded-[2.5rem] bg-white p-8 lg:p-10">
+          <section
+            v-reveal="{ delay: 300 }"
+            class="premium-card rounded-[2.5rem] bg-white p-8 lg:p-10"
+          >
             <div class="flex items-center justify-between">
               <h2 class="text-2xl font-extrabold tracking-tight text-highlighted">
                 {{ tr('Student Feedback', 'รีวิวจากนักเรียน') }}
@@ -176,19 +206,32 @@ const schedule = computed(() => pick(
                 class="rounded-full font-bold"
               />
             </div>
-            
+
             <div class="mt-8 grid gap-6">
-              <div v-for="i in 2" :key="i" class="rounded-[2rem] bg-bg-muted/40 p-6 ring-1 ring-border-muted transition-all hover:bg-white hover:shadow-premium">
+              <div
+                v-for="i in 2"
+                :key="i"
+                class="rounded-[2rem] bg-bg-muted/40 p-6 ring-1 ring-border-muted transition-all hover:bg-white hover:shadow-premium"
+              >
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-3">
                     <div class="size-10 rounded-full bg-accent-100 ring-2 ring-white" />
                     <div>
-                      <p class="text-sm font-bold text-highlighted">Phawin R.</p>
-                      <p class="text-[11px] font-medium text-dimmed">Grade 11 Student</p>
+                      <p class="text-sm font-bold text-highlighted">
+                        Phawin R.
+                      </p>
+                      <p class="text-[11px] font-medium text-dimmed">
+                        Grade 11 Student
+                      </p>
                     </div>
                   </div>
                   <div class="flex items-center gap-0.5 text-amber-500">
-                    <UIcon v-for="s in 5" :key="s" name="i-lucide-star" class="size-3.5 fill-current" />
+                    <UIcon
+                      v-for="s in 5"
+                      :key="s"
+                      name="i-lucide-star"
+                      class="size-3.5 fill-current"
+                    />
                   </div>
                 </div>
                 <p class="mt-4 text-sm font-medium leading-relaxed text-toned">
@@ -201,20 +244,26 @@ const schedule = computed(() => pick(
 
         <!-- Sidebar / Booking Card -->
         <aside class="space-y-6">
-          <section 
-            v-reveal="{ delay: 400 }" 
+          <section
+            v-reveal="{ delay: 400 }"
             class="glass-premium sticky top-24 rounded-[2.5rem] p-8 shadow-premium-xl lg:p-10"
           >
             <div class="flex items-end justify-between">
-              <p class="text-sm font-black uppercase tracking-widest text-dimmed">{{ tr('Starting at', 'เริ่มต้น') }}</p>
+              <p class="text-sm font-black uppercase tracking-widest text-dimmed">
+                {{ tr('Starting at', 'เริ่มต้น') }}
+              </p>
               <div class="text-right">
-                <p class="text-4xl font-black text-brand-600">{{ tutor.price }}<span class="text-lg font-medium text-dimmed">/hr</span></p>
+                <p class="text-4xl font-black text-brand-600">
+                  {{ tutor.price }}<span class="text-lg font-medium text-dimmed">/hr</span>
+                </p>
               </div>
             </div>
 
             <div class="mt-10 space-y-6">
               <div>
-                <h3 class="text-xs font-black uppercase tracking-widest text-dimmed">{{ tr('Availability', 'ตารางเวลา') }}</h3>
+                <h3 class="text-xs font-black uppercase tracking-widest text-dimmed">
+                  {{ tr('Availability', 'ตารางเวลา') }}
+                </h3>
                 <div class="mt-4 grid grid-cols-2 gap-2">
                   <button
                     v-for="slot in schedule"
@@ -250,7 +299,10 @@ const schedule = computed(() => pick(
 
             <div class="mt-8 rounded-2xl bg-brand-50/50 p-4 text-center ring-1 ring-brand-100/50">
               <div class="flex items-center justify-center gap-2 text-brand-700">
-                <UIcon name="i-lucide-shield-check" class="size-4" />
+                <UIcon
+                  name="i-lucide-shield-check"
+                  class="size-4"
+                />
                 <span class="text-[11px] font-black uppercase tracking-widest">{{ tr('Secure payment', 'ชำระเงินปลอดภัย') }}</span>
               </div>
             </div>

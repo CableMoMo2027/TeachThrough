@@ -26,7 +26,10 @@ const posts = computed(() => [
       </header>
 
       <!-- Featured Post -->
-      <div v-reveal class="mb-20 overflow-hidden rounded-[2.5rem] bg-white shadow-premium-lg ring-1 ring-slate-200 transition-all hover:shadow-premium-xl lg:flex">
+      <div
+        v-reveal
+        class="mb-20 overflow-hidden rounded-[2.5rem] bg-white shadow-premium-lg ring-1 ring-slate-200 transition-all hover:shadow-premium-xl lg:flex"
+      >
         <div class="lg:w-1/2">
           <img
             src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1200&q=80"
@@ -81,7 +84,10 @@ const posts = computed(() => [
             </p>
             <div class="mt-8 flex items-center text-sm font-semibold text-brand-500">
               <span>{{ tr('Read guide', 'อ่านคู่มือ') }}</span>
-              <UIcon name="i-lucide-arrow-right" class="ml-2 size-4 transition-transform group-hover:translate-x-1" />
+              <UIcon
+                name="i-lucide-arrow-right"
+                class="ml-2 size-4 transition-transform group-hover:translate-x-1"
+              />
             </div>
           </div>
         </article>

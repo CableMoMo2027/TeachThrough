@@ -50,10 +50,13 @@ const items = computed(() => [
             <p class="mt-2 text-sm leading-relaxed text-muted">
               {{ item[1] }}
             </p>
-            
+
             <div class="mt-8 flex items-center text-sm font-semibold text-brand-500 opacity-0 transition-all group-hover:opacity-100">
               <span>{{ tr('Manage', 'จัดการ') }}</span>
-              <UIcon name="i-lucide-chevron-right" class="ml-1 size-4" />
+              <UIcon
+                name="i-lucide-chevron-right"
+                class="ml-1 size-4"
+              />
             </div>
           </div>
         </NuxtLink>

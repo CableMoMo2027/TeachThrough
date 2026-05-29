@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { gsap } from 'gsap'
 
-interface Props {
+interface SplitTextProps {
   text: string
   className?: string
   delay?: number
   duration?: number
 }
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<SplitTextProps>(), {
   className: '',
   delay: 0,
   duration: 0.6

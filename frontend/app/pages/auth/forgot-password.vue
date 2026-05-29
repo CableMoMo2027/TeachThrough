@@ -22,7 +22,7 @@ const { tr } = useAppLocale()
           </p>
         </div>
       </template>
-      
+
       <div class="grid gap-6">
         <UInput
           class="premium-input"
@@ -30,7 +30,7 @@ const { tr } = useAppLocale()
           size="lg"
           :placeholder="tr('Email address', 'อีเมล')"
         />
-        
+
         <UButton
           :label="tr('Send Reset Email', 'ส่งอีเมลรีเซ็ต')"
           icon="i-lucide-send"
@@ -44,7 +44,10 @@ const { tr } = useAppLocale()
             to="/auth/sign-in"
             class="inline-flex items-center gap-2 text-sm font-semibold text-muted hover:text-primary transition-colors"
           >
-            <UIcon name="i-lucide-arrow-left" class="size-4" />
+            <UIcon
+              name="i-lucide-arrow-left"
+              class="size-4"
+            />
             <span>{{ tr('Back to Sign In', 'กลับไปหน้าเข้าสู่ระบบ') }}</span>
           </NuxtLink>
         </div>
