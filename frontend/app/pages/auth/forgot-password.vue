@@ -24,12 +24,20 @@ const { tr } = useAppLocale()
       </template>
 
       <div class="grid gap-6">
-        <UInput
-          class="premium-input"
-          icon="i-lucide-mail"
-          size="lg"
-          :placeholder="tr('Email address', 'อีเมล')"
-        />
+        <UFormField
+          name="email"
+          :label="tr('Email address', 'อีเมล')"
+          required
+        >
+          <UInput
+            class="premium-input"
+            icon="i-lucide-mail"
+            size="lg"
+            type="email"
+            autocomplete="email"
+            :placeholder="tr('name@example.com', 'name@example.com')"
+          />
+        </UFormField>
 
         <UButton
           :label="tr('Send Reset Email', 'ส่งอีเมลรีเซ็ต')"

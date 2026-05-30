@@ -32,12 +32,16 @@ const initAnimation = () => {
   gsap.registerPlugin(ScrollTrigger)
 
   const chars = containerRef.value.querySelectorAll('.blur-char')
+  const isMobile = window.matchMedia('(max-width: 767px)').matches
+  const shouldReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const blurAmount = isMobile || shouldReduceMotion ? '0px' : props.blur
+  const yAmount = isMobile ? props.y * 0.5 : props.y
 
   const animation = gsap.fromTo(chars,
     {
-      filter: `blur(${props.blur})`,
+      filter: `blur(${blurAmount})`,
       opacity: 0,
-      y: props.y
+      y: yAmount
     },
     {
       filter: 'blur(0px)',

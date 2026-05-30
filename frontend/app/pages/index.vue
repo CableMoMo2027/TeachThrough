@@ -16,6 +16,10 @@ const handleMouseMove = (e: MouseEvent) => {
 
 onMounted(() => {
   if (import.meta.client) {
+    const shouldReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const isMobile = window.matchMedia('(max-width: 767px)').matches
+    if (shouldReduceMotion || isMobile) return
+
     gsap.registerPlugin(ScrollTrigger)
 
     // Hero Parallax
@@ -173,29 +177,35 @@ const steps = computed(() => [
             class="glass-premium mt-12 w-full max-w-3xl rounded-[2.5rem] p-4 shadow-premium-xl transition-all duration-700 hover:shadow-2xl hover:scale-[1.01]"
           >
             <div class="grid gap-3 lg:grid-cols-[1.4fr_1fr_0.8fr_auto]">
-              <UInput
-                icon="i-lucide-search"
-                class="premium-input"
-                :placeholder="tr('What do you want to learn?', 'คุณต้องการเรียนอะไร?')"
-                size="xl"
-              />
-              <UInput
-                icon="i-lucide-map-pin"
-                class="premium-input"
-                :placeholder="tr('Location or online', 'พื้นที่หรือออนไลน์')"
-                size="xl"
-              />
-              <USelect
-                class="premium-input"
-                :items="levels"
-                :placeholder="tr('Level', 'ระดับชั้น')"
-                size="xl"
-              />
+              <UFormField :label="tr('Learning goal', 'Learning goal')">
+                <UInput
+                  icon="i-lucide-search"
+                  class="premium-input"
+                  :placeholder="tr('What do you want to learn?', 'คุณต้องการเรียนอะไร?')"
+                  size="xl"
+                />
+              </UFormField>
+              <UFormField :label="tr('Location', 'Location')">
+                <UInput
+                  icon="i-lucide-map-pin"
+                  class="premium-input"
+                  :placeholder="tr('Bangkok, Chiang Mai, or online', 'Bangkok, Chiang Mai, or online')"
+                  size="xl"
+                />
+              </UFormField>
+              <UFormField :label="tr('Level', 'Level')">
+                <USelect
+                  class="premium-input"
+                  :items="levels"
+                  :placeholder="tr('Select level', 'Select level')"
+                  size="xl"
+                />
+              </UFormField>
               <UButton
                 to="/find-tutors"
                 :label="tr('Find Tutors', 'ค้นหาติวเตอร์')"
                 size="xl"
-                class="justify-center rounded-full px-8 font-bold shadow-premium hover:scale-[1.05] active:scale-[0.95] transition-transform"
+                class="self-end justify-center rounded-full px-8 font-bold shadow-premium transition-transform hover:scale-[1.05] active:scale-[0.95]"
               />
             </div>
           </div>
@@ -333,9 +343,10 @@ const steps = computed(() => [
             class="mb-6 rounded-full bg-brand-50 px-3 font-black uppercase tracking-widest text-brand-600"
           />
           <h2 class="text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
-            <BlurText
+            <SplitText
               :text="tr('A marketplace crafted for clarity.', 'ตลาดวิชาที่ออกแบบมาเพื่อความชัดเจน')"
               :delay="0.1"
+              :duration="0.52"
             />
           </h2>
           <p
@@ -399,12 +410,17 @@ const steps = computed(() => [
               variant="subtle"
               class="mb-4 rounded-full bg-accent-50 px-3 font-black uppercase tracking-widest text-accent-600"
             />
-            <h2 class="text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
-              <BlurText
-                :text="tr('Profiles built on trust.', 'โปรไฟล์ที่สร้างจากความไว้วางใจ')"
-                :delay="0.1"
-              />
-            </h2>
+            <FadeContent
+              :blur="true"
+              :duration="0.85"
+              :x="-36"
+              :y="0"
+              :threshold="0.25"
+            >
+              <h2 class="text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
+                <span class="block">{{ tr('Profiles built on trust.', 'โปรไฟล์ที่สร้างจากความไว้วางใจ') }}</span>
+              </h2>
+            </FadeContent>
             <p
               v-reveal="{ delay: 400 }"
               class="mt-4 text-lg font-medium text-muted"
@@ -488,11 +504,11 @@ const steps = computed(() => [
             variant="subtle"
             class="mb-6 rounded-full bg-trust-50 px-3 font-black uppercase tracking-widest text-trust-600"
           />
-          <h2 class="text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl">
-            <BlurText
-              :text="tr('Three steps to mastery.', '3 ขั้นตอนสู่ความเป็นเลิศ')"
-              :delay="0.1"
-            />
+          <h2
+            v-reveal="{ delay: 120 }"
+            class="process-heading text-4xl font-extrabold tracking-tight text-highlighted sm:text-5xl"
+          >
+            {{ tr('Three steps to mastery.', '3 ขั้นตอนสู่ความเป็นเลิศ') }}
           </h2>
           <p
             v-reveal="{ delay: 400 }"
@@ -561,10 +577,9 @@ const steps = computed(() => [
               class="mb-6 rounded-full bg-brand-50 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-brand-600 ring-1 ring-brand-100"
             />
             <h2 class="text-3xl font-extrabold tracking-tight text-highlighted sm:text-4xl lg:text-5xl">
-              <BlurText
-                :text="tr('Join our elite circle of tutors.', 'เข้าร่วมกลุ่มติวเตอร์ระดับหัวกะทิของเรา')"
-                :delay="0.1"
-              />
+              <span class="cta-heading-pop block">
+                {{ tr('Join our elite circle of tutors.', 'เข้าร่วมกลุ่มติวเตอร์ระดับหัวกะทิของเรา') }}
+              </span>
             </h2>
             <p class="mt-6 max-w-2xl text-base font-medium leading-relaxed text-muted lg:text-lg">
               {{ tr('Are you an exceptional educator? Build your professional presence and connect with students who value expertise.', 'คุณเป็นครูที่ยอดเยี่ยมใช่ไหม? สร้างโปรไฟล์มืออาชีพและเชื่อมต่อกับนักเรียนที่ให้ความสำคัญกับความเชี่ยวชาญ') }}
@@ -591,3 +606,24 @@ const steps = computed(() => [
     </section>
   </div>
 </template>
+
+<style scoped>
+.cta-heading-pop {
+  animation: cta-heading-pop 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: center bottom;
+}
+
+@keyframes cta-heading-pop {
+  0% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(18px) scale(0.96);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+}
+</style>

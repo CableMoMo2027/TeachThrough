@@ -159,40 +159,50 @@ const tutors = computed(() => [
         class="glass-premium sticky top-[calc(var(--ui-header-height)+1rem)] z-30 mb-12 rounded-[2rem] p-5 shadow-premium-lg transition-all duration-500 hover:shadow-premium-xl"
       >
         <div class="grid gap-4 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1fr_auto]">
-          <UInput
-            icon="i-lucide-search"
-            class="premium-input"
-            :placeholder="tr('What do you want to learn?', 'คุณต้องการเรียนอะไร?')"
-            size="xl"
-          />
-          <USelect
-            class="premium-input"
-            :items="subjectItems"
-            :placeholder="tr('Subject', 'วิชา')"
-            size="xl"
-          />
-          <USelect
-            class="premium-input"
-            :items="gradeItems"
-            :placeholder="tr('Level', 'ระดับชั้น')"
-            size="xl"
-          />
-          <USelect
-            class="premium-input"
-            :items="formatItems"
-            :placeholder="tr('Mode', 'รูปแบบ')"
-            size="xl"
-          />
-          <USelect
-            class="premium-input"
-            :items="ratingItems"
-            :placeholder="tr('Rating', 'คะแนน')"
-            size="xl"
-          />
+          <UFormField :label="tr('Learning goal', 'Learning goal')">
+            <UInput
+              icon="i-lucide-search"
+              class="premium-input"
+              :placeholder="tr('What do you want to learn?', 'คุณต้องการเรียนอะไร?')"
+              size="xl"
+            />
+          </UFormField>
+          <UFormField :label="tr('Subject', 'Subject')">
+            <USelect
+              class="premium-input"
+              :items="subjectItems"
+              :placeholder="tr('Select subject', 'Select subject')"
+              size="xl"
+            />
+          </UFormField>
+          <UFormField :label="tr('Level', 'Level')">
+            <USelect
+              class="premium-input"
+              :items="gradeItems"
+              :placeholder="tr('Select level', 'Select level')"
+              size="xl"
+            />
+          </UFormField>
+          <UFormField :label="tr('Mode', 'Mode')">
+            <USelect
+              class="premium-input"
+              :items="formatItems"
+              :placeholder="tr('Select mode', 'Select mode')"
+              size="xl"
+            />
+          </UFormField>
+          <UFormField :label="tr('Rating', 'Rating')">
+            <USelect
+              class="premium-input"
+              :items="ratingItems"
+              :placeholder="tr('Select rating', 'Select rating')"
+              size="xl"
+            />
+          </UFormField>
           <UButton
             :label="tr('Search', 'ค้นหา')"
             size="xl"
-            class="justify-center rounded-full px-8 font-bold shadow-premium hover:scale-105"
+            class="self-end justify-center rounded-full px-8 font-bold shadow-premium hover:scale-105"
           />
         </div>
 

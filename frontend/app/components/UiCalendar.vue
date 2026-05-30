@@ -90,31 +90,37 @@ watch(
 <template>
   <div class="grid gap-3">
     <div class="grid grid-cols-[1fr_auto] gap-2">
-      <select
-        v-model="selectedMonth"
-        class="rounded-full border border-sky-100 bg-white px-3 py-2 text-sm font-semibold text-slate-700 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
-      >
-        <option
-          v-for="month in monthOptions"
-          :key="month.value"
-          :value="month.value"
+      <label class="grid gap-1">
+        <span class="px-1 text-[11px] font-bold text-slate-600">Month</span>
+        <select
+          v-model="selectedMonth"
+          class="rounded-full border border-sky-100 bg-white px-3 py-2 text-sm font-semibold text-slate-700 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
         >
-          {{ month.label }}
-        </option>
-      </select>
+          <option
+            v-for="month in monthOptions"
+            :key="month.value"
+            :value="month.value"
+          >
+            {{ month.label }}
+          </option>
+        </select>
+      </label>
 
-      <select
-        v-model="selectedYear"
-        class="rounded-full border border-sky-100 bg-white px-3 py-2 text-sm font-semibold text-slate-700 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
-      >
-        <option
-          v-for="year in yearOptions"
-          :key="year"
-          :value="year"
+      <label class="grid gap-1">
+        <span class="px-1 text-[11px] font-bold text-slate-600">Year</span>
+        <select
+          v-model="selectedYear"
+          class="rounded-full border border-sky-100 bg-white px-3 py-2 text-sm font-semibold text-slate-700 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
         >
-          {{ year }}
-        </option>
-      </select>
+          <option
+            v-for="year in yearOptions"
+            :key="year"
+            :value="year"
+          >
+            {{ year }}
+          </option>
+        </select>
+      </label>
     </div>
 
     <UCalendar

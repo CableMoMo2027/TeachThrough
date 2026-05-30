@@ -1,10 +1,40 @@
 <script setup lang="ts">
+import { z } from 'zod'
+
 const { tr, pick } = useAppLocale()
 
-const topicItems = computed(() => pick(
-  ['I am a parent/student', 'I am a tutor', 'Partnership', 'Support'],
-  ['ฉันเป็นผู้ปกครอง/นักเรียน', 'ฉันเป็นติวเตอร์', 'พาร์ตเนอร์', 'ฝ่ายสนับสนุน']
+const roleItems = computed(() => pick(
+  ['Parent', 'Student', 'Tutor', 'Partner', 'Support'],
+  ['ผู้ปกครอง', 'นักเรียน', 'ติวเตอร์', 'พาร์ตเนอร์', 'ฝ่ายสนับสนุน']
 ))
+
+const contactSchema = z.object({
+  name: z.string().min(2, 'Name is required'),
+  email: z.string().email('Enter a valid email address'),
+  role: z.string().min(1, 'Select your role'),
+  message: z.string().min(10, 'Message must be at least 10 characters')
+})
+
+const contactState = reactive({
+  name: '',
+  email: '',
+  role: '',
+  message: ''
+})
+
+const formShaking = ref(false)
+const sent = ref(false)
+
+const handleFormError = () => {
+  formShaking.value = true
+  window.setTimeout(() => {
+    formShaking.value = false
+  }, 360)
+}
+
+const handleContactSubmit = () => {
+  sent.value = true
+}
 </script>
 
 <template>
@@ -25,53 +55,27 @@ const topicItems = computed(() => pick(
           </p>
 
           <div class="mt-12 space-y-8">
-            <div class="flex items-center gap-6">
-              <div class="flex size-12 items-center justify-center rounded-2xl bg-brand-50 text-brand-500">
+            <div
+              v-for="item in [
+                ['i-lucide-mail', tr('Email us', 'อีเมล'), 'support@TeachThrough.test', 'bg-brand-50 text-brand-500'],
+                ['i-lucide-clock', tr('Working Hours', 'เวลาทำการ'), tr('Mon-Fri, 9:00-18:00', 'จันทร์-ศุกร์ 9:00-18:00'), 'bg-accent-50 text-accent-500'],
+                ['i-lucide-message-circle', tr('Social Media', 'โซเชียลมีเดีย'), tr('Facebook, Instagram, and Line', 'Facebook, Instagram และ Line'), 'bg-trust-50 text-trust-500']
+              ]"
+              :key="item[1]"
+              class="flex items-center gap-6"
+            >
+              <div :class="['flex size-12 items-center justify-center rounded-2xl', item[3]]">
                 <UIcon
-                  name="i-lucide-mail"
+                  :name="item[0]"
                   class="size-6"
                 />
               </div>
               <div>
-                <p class="text-sm font-semibold text-muted uppercase tracking-wider">
-                  {{ tr('Email us', 'อีเมล') }}
+                <p class="text-sm font-semibold uppercase tracking-wider text-muted">
+                  {{ item[1] }}
                 </p>
                 <p class="text-lg font-bold text-highlighted">
-                  support@TeachThrough.test
-                </p>
-              </div>
-            </div>
-
-            <div class="flex items-center gap-6">
-              <div class="flex size-12 items-center justify-center rounded-2xl bg-accent-50 text-accent-500">
-                <UIcon
-                  name="i-lucide-clock"
-                  class="size-6"
-                />
-              </div>
-              <div>
-                <p class="text-sm font-semibold text-muted uppercase tracking-wider">
-                  {{ tr('Working Hours', 'เวลาทำการ') }}
-                </p>
-                <p class="text-lg font-bold text-highlighted">
-                  {{ tr('Mon-Fri, 9:00-18:00', 'จันทร์-ศุกร์ 9:00-18:00') }}
-                </p>
-              </div>
-            </div>
-
-            <div class="flex items-center gap-6">
-              <div class="flex size-12 items-center justify-center rounded-2xl bg-trust-50 text-trust-500">
-                <UIcon
-                  name="i-lucide-message-circle"
-                  class="size-6"
-                />
-              </div>
-              <div>
-                <p class="text-sm font-semibold text-muted uppercase tracking-wider">
-                  {{ tr('Social Media', 'โซเชียลมีเดีย') }}
-                </p>
-                <p class="text-lg font-bold text-highlighted">
-                  {{ tr('Facebook, Instagram, and Line', 'Facebook, Instagram และ Line') }}
+                  {{ item[2] }}
                 </p>
               </div>
             </div>
@@ -83,85 +87,106 @@ const topicItems = computed(() => pick(
           class="premium-card rounded-[2.5rem] bg-white shadow-premium-xl"
           :ui="{ body: 'p-8 sm:p-12' }"
         >
-          <div class="mb-10">
+          <div class="mb-8">
             <h2 class="text-2xl font-black text-highlighted">
               {{ tr('Send a Message', 'ส่งข้อความหาเรา') }}
             </h2>
-            <p class="text-sm font-medium text-muted mt-2">
-              {{ tr('Complete the steps to send your inquiry.', 'กรอกข้อมูลตามขั้นตอนเพื่อส่งคำขอติดต่อ') }}
+            <p class="mt-2 text-sm font-medium text-muted">
+              {{ tr('Tell us who you are and how we can help.', 'บอกเราว่าคุณคือใคร และต้องการให้เราช่วยเรื่องอะไร') }}
             </p>
           </div>
 
-          <Stepper
-            step-circle-container-class-name="!max-w-none !rounded-[1rem] !bg-slate-50 !p-4 !shadow-none !border-none !mb-8"
-            :back-button-text="tr('Back', 'ย้อนกลับ')"
-            :next-button-text="tr('Next', 'ต่อไป')"
-            :complete-button-text="tr('Send Message', 'ส่งข้อความ')"
-            :lock-on-complete="false"
-          >
-            <!-- Step 1: Contact Info -->
-            <div class="grid gap-6">
-              <div class="mb-2">
-                <h3 class="text-lg font-bold text-highlighted">
-                  {{ tr('Your Details', 'ข้อมูลของคุณ') }}
-                </h3>
-                <p class="text-xs text-muted">
-                  How can we address you?
-                </p>
-              </div>
-              <div class="grid gap-4">
-                <div class="grid gap-4 sm:grid-cols-2">
-                  <UInput
-                    class="premium-input"
-                    size="lg"
-                    :placeholder="tr('First Name', 'ชื่อ')"
-                  />
-                  <UInput
-                    class="premium-input"
-                    size="lg"
-                    :placeholder="tr('Last Name', 'นามสกุล')"
-                  />
-                </div>
-                <UInput
-                  class="premium-input"
-                  icon="i-lucide-mail"
-                  size="lg"
-                  :placeholder="tr('Email address', 'อีเมล')"
-                />
-              </div>
-            </div>
+          <UAlert
+            v-if="sent"
+            icon="i-lucide-check-circle"
+            color="primary"
+            variant="subtle"
+            class="mb-5 rounded-2xl"
+            :title="tr('Message sent', 'ส่งข้อความแล้ว')"
+            :description="tr('Our team will follow up soon.', 'ทีมงานจะติดต่อกลับเร็ว ๆ นี้')"
+          />
 
-            <!-- Step 2: Message -->
-            <div class="grid gap-6">
-              <div class="mb-2">
-                <h3 class="text-lg font-bold text-highlighted">
-                  {{ tr('The Message', 'รายละเอียด') }}
-                </h3>
-                <p class="text-xs text-muted">
-                  What do you need help with?
-                </p>
-              </div>
-              <div class="grid gap-4">
-                <USelect
-                  class="premium-input"
-                  size="lg"
-                  icon="i-lucide-help-circle"
-                  :items="topicItems"
-                  :placeholder="tr('Topic', 'หัวข้อ')"
-                />
-                <UTextarea
-                  class="premium-input"
-                  size="lg"
-                  :placeholder="tr('Tell us more...', 'อธิบายรายละเอียด...')"
-                  :rows="4"
-                />
-              </div>
-            </div>
-          </Stepper>
+          <UForm
+            :schema="contactSchema"
+            :state="contactState"
+            :validate-on="['input', 'blur', 'change']"
+            :class="['grid gap-5', formShaking ? 'form-shake' : '']"
+            @error="handleFormError"
+            @submit="handleContactSubmit"
+          >
+            <UFormField
+              name="name"
+              :label="tr('Name', 'ชื่อ')"
+              required
+            >
+              <UInput
+                v-model="contactState.name"
+                class="premium-input"
+                size="lg"
+                icon="i-lucide-user"
+                autocomplete="name"
+                :placeholder="tr('Enter your name', 'กรอกชื่อของคุณ')"
+              />
+            </UFormField>
+
+            <UFormField
+              name="email"
+              :label="tr('Email address', 'อีเมล')"
+              required
+            >
+              <UInput
+                v-model="contactState.email"
+                class="premium-input"
+                icon="i-lucide-mail"
+                size="lg"
+                type="email"
+                autocomplete="email"
+                :placeholder="tr('name@example.com', 'name@example.com')"
+              />
+            </UFormField>
+
+            <UFormField
+              name="role"
+              :label="tr('Role', 'บทบาท')"
+              required
+            >
+              <USelect
+                v-model="contactState.role"
+                class="premium-input"
+                size="lg"
+                icon="i-lucide-users"
+                :items="roleItems"
+                :placeholder="tr('Select your role', 'เลือกบทบาทของคุณ')"
+              />
+            </UFormField>
+
+            <UFormField
+              name="message"
+              :label="tr('Message', 'ข้อความ')"
+              required
+            >
+              <UTextarea
+                v-model="contactState.message"
+                class="contact-message-textarea"
+                variant="none"
+                size="lg"
+                :placeholder="tr('Tell us what you need help with', 'บอกเราว่าต้องการให้ช่วยเรื่องอะไร')"
+                :rows="6"
+              />
+            </UFormField>
+
+            <UButton
+              type="submit"
+              size="xl"
+              trailing-icon="i-lucide-send"
+              class="mx-auto mt-2 w-full max-w-64 justify-center rounded-full font-black shadow-premium-md transition-all hover:scale-[1.01]"
+            >
+              {{ tr('Send Message', 'ส่งข้อความ') }}
+            </UButton>
+          </UForm>
         </UCard>
       </div>
 
-      <!-- FAQ Section -->
       <section class="mt-32">
         <div class="mb-16 text-center">
           <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
@@ -171,40 +196,21 @@ const topicItems = computed(() => pick(
 
         <div class="grid gap-6 md:grid-cols-3">
           <div
+            v-for="(faq, index) in [
+              [tr('Are tutors verified?', 'ติวเตอร์ผ่านการตรวจสอบไหม?'), tr('Tutor profiles are reviewed before appearing in search.', 'โปรไฟล์ติวเตอร์จะถูกตรวจสอบก่อนแสดงในหน้าค้นหา')],
+              [tr('Can sessions be online?', 'เรียนออนไลน์ได้ไหม?'), tr('Tutors can offer online, offline, or hybrid lessons.', 'ติวเตอร์สามารถเปิดสอนออนไลน์ ออนไซต์ หรือแบบผสมผสานได้')],
+              [tr('How do I pay?', 'ชำระเงินอย่างไร?'), tr('Currently, you pay tutors directly. Platform payments are coming in Phase 2.', 'ขณะนี้คุณชำระเงินให้ติวเตอร์โดยตรง ระบบชำระผ่านแพลตฟอร์มกำลังจะมาใน Phase 2')]
+            ]"
+            :key="faq[0]"
             v-reveal
             class="premium-card rounded-[2rem] bg-white p-8 shadow-premium-md"
+            :style="{ '--reveal-delay': `${index * 100}ms` }"
           >
             <h3 class="text-lg font-bold text-highlighted">
-              {{ tr('Are tutors verified?', 'ติวเตอร์ผ่านการตรวจสอบไหม?') }}
+              {{ faq[0] }}
             </h3>
-            <p class="mt-4 text-muted leading-relaxed">
-              {{ tr('Tutor profiles are reviewed before appearing in search.', 'โปรไฟล์ติวเตอร์จะถูกตรวจสอบก่อนแสดงในหน้าค้นหา') }}
-            </p>
-          </div>
-
-          <div
-            v-reveal
-            class="premium-card rounded-[2rem] bg-white p-8 shadow-premium-md"
-            style="--reveal-delay: 100ms"
-          >
-            <h3 class="text-lg font-bold text-highlighted">
-              {{ tr('Can sessions be online?', 'เรียนออนไลน์ได้ไหม?') }}
-            </h3>
-            <p class="mt-4 text-muted leading-relaxed">
-              {{ tr('Tutors can offer online, offline, or hybrid lessons.', 'ติวเตอร์สามารถเปิดสอนออนไลน์ ออนไซต์ หรือแบบผสมผสานได้') }}
-            </p>
-          </div>
-
-          <div
-            v-reveal
-            class="premium-card rounded-[2rem] bg-white p-8 shadow-premium-md"
-            style="--reveal-delay: 200ms"
-          >
-            <h3 class="text-lg font-bold text-highlighted">
-              {{ tr('How do I pay?', 'ชำระเงินอย่างไร?') }}
-            </h3>
-            <p class="mt-4 text-muted leading-relaxed">
-              {{ tr('Currently, you pay tutors directly. Platform payments are coming in Phase 2.', 'ขณะนี้คุณชำระเงินให้ติวเตอร์โดยตรง ระบบชำระผ่านแพลตฟอร์มกำลังจะมาใน Phase 2') }}
+            <p class="mt-4 leading-relaxed text-muted">
+              {{ faq[1] }}
             </p>
           </div>
         </div>
@@ -212,3 +218,49 @@ const topicItems = computed(() => pick(
     </UContainer>
   </div>
 </template>
+
+<style scoped>
+.form-shake {
+  animation: form-shake 320ms cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+.contact-message-textarea {
+  width: 100%;
+  border-radius: 1.5rem;
+  background: rgb(255 255 255);
+  box-shadow: inset 0 0 0 1px rgb(186 230 253);
+  transition: box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-message-textarea:focus-within {
+  box-shadow:
+    inset 0 0 0 2px rgb(14 165 233),
+    0 0 0 4px rgb(14 165 233 / 0.24);
+}
+
+.contact-message-textarea :deep(textarea) {
+  min-height: 10.5rem;
+  resize: none;
+  border: 0 !important;
+  border-radius: 1.5rem;
+  background: transparent !important;
+  padding: 1rem;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+@keyframes form-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-5px);
+  }
+
+  75% {
+    transform: translateX(5px);
+  }
+}
+</style>

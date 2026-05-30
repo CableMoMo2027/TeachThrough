@@ -34,14 +34,19 @@ const initAnimation = () => {
   gsap.registerPlugin(ScrollTrigger)
 
   const targets = containerRef.value.children
+  const isMobile = window.matchMedia('(max-width: 767px)').matches
+  const shouldReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const blurValue = props.blur && !isMobile && !shouldReduceMotion ? 'blur(10px)' : 'none'
+  const yValue = isMobile ? props.y * 0.5 : props.y
+  const xValue = isMobile ? props.x * 0.5 : props.x
 
   const animation = gsap.fromTo(targets,
     {
       opacity: 0,
-      y: props.y,
-      x: props.x,
+      y: yValue,
+      x: xValue,
       scale: props.scale,
-      filter: props.blur ? 'blur(10px)' : 'none'
+      filter: blurValue
     },
     {
       opacity: 1,

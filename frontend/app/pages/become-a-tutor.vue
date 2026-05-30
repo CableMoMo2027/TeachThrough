@@ -53,7 +53,7 @@ const handleNamedFileChange = (event: Event, target: TutorDocumentKey) => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-bg-muted/30 pb-24 pt-16">
+  <div class="min-h-screen bg-bg-muted/30 pb-16 pt-8 lg:pt-10">
     <UContainer>
       <Transition
         name="auth-form"
@@ -61,17 +61,17 @@ const handleNamedFileChange = (event: Event, target: TutorDocumentKey) => {
       >
         <div
           v-if="!showForm"
-          class="mx-auto max-w-5xl space-y-20"
+          class="mx-auto max-w-4xl space-y-12"
         >
           <!-- Hero Invitation -->
-          <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div class="grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-center">
             <div v-reveal>
               <UBadge
                 label="Impact the Future"
                 variant="subtle"
                 class="mb-6 rounded-full bg-brand-50 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-brand-600 ring-1 ring-brand-100"
               />
-              <h1 class="text-balance text-5xl font-black tracking-tight text-highlighted lg:text-7xl lg:leading-[1.1]">
+              <h1 class="text-balance text-4xl font-black tracking-tight text-highlighted sm:text-5xl lg:text-6xl lg:leading-tight">
                 <BlurText
                   :text="tr('Your expertise,', 'ความเชี่ยวชาญของคุณ')"
                   :animate-on-scroll="false"
@@ -84,14 +84,14 @@ const handleNamedFileChange = (event: Event, target: TutorDocumentKey) => {
                   :animate-on-scroll="false"
                 />
               </h1>
-              <p class="mt-8 text-xl font-medium leading-relaxed text-muted lg:text-2xl">
+              <p class="mt-5 text-lg font-medium leading-relaxed text-muted lg:text-xl">
                 {{ tr('Join Thailand’s most trusted circle of elite educators. Help students reach their potential with our premium matching experience.', 'เข้าร่วมกลุ่มผู้สอนระดับแนวหน้าที่ได้รับความไว้วางใจที่สุด ช่วยให้นักเรียนบรรลุศักยภาพสูงสุดด้วยระบบการจับคู่ระดับพรีเมียมของเรา') }}
               </p>
-              <div class="mt-12 flex flex-wrap gap-4">
+              <div class="mt-8 flex flex-wrap gap-3">
                 <UButton
                   :label="tr('Become a Tutor', 'สมัครเป็นติวเตอร์')"
-                  size="xl"
-                  class="rounded-full px-12 py-6 text-lg font-black shadow-premium-lg transition-all hover:scale-105 active:scale-95"
+                  size="lg"
+                  class="rounded-full px-9 py-4 text-base font-black shadow-premium-lg transition-all hover:scale-105 active:scale-95"
                   @click="showForm = true"
                 />
                 <UButton
@@ -99,21 +99,21 @@ const handleNamedFileChange = (event: Event, target: TutorDocumentKey) => {
                   :label="tr('Explore Marketplace', 'สำรวจตลาดวิชา')"
                   variant="ghost"
                   color="neutral"
-                  size="xl"
-                  class="rounded-full px-8 font-bold text-toned"
+                  size="lg"
+                  class="rounded-full px-6 font-bold text-toned"
                 />
               </div>
             </div>
 
             <div
               v-reveal="{ delay: 400 }"
-              class="relative hidden lg:block"
+              class="relative hidden max-w-sm justify-self-center lg:block"
             >
-              <div class="premium-card overflow-hidden rounded-[3rem] bg-white p-2 shadow-premium-xl">
+              <div class="premium-card overflow-hidden rounded-[2rem] bg-white p-2 shadow-premium-lg">
                 <img
-                  src="https://images.unsplash.com/photo-1544717297-fa15739a544a?auto=format&fit=crop&w=800&q=80"
+                  src="/images/tutor-teaching.jpg"
                   alt="Tutor teaching"
-                  class="aspect-[4/5] w-full rounded-[2.5rem] object-cover"
+                  class="aspect-[4/5] max-h-[28rem] w-full rounded-[1.5rem] object-cover"
                 >
               </div>
             </div>
@@ -215,23 +215,42 @@ const handleNamedFileChange = (event: Event, target: TutorDocumentKey) => {
                   </h2>
                 </div>
                 <div class="grid gap-4 sm:grid-cols-3">
-                  <UInput
-                    class="premium-input"
-                    icon="i-lucide-mail"
-                    :placeholder="tr('Email address *', 'อีเมล *')"
-                  />
-                  <UInput
-                    class="premium-input"
-                    icon="i-lucide-lock"
-                    type="password"
-                    :placeholder="tr('Password *', 'รหัสผ่าน *')"
-                  />
-                  <UInput
-                    class="premium-input"
-                    icon="i-lucide-lock-keyhole"
-                    type="password"
-                    :placeholder="tr('Confirm password *', 'ยืนยันรหัสผ่าน *')"
-                  />
+                  <UFormField
+                    :label="tr('Email address', 'อีเมล')"
+                    required
+                  >
+                    <UInput
+                      class="premium-input"
+                      icon="i-lucide-mail"
+                      type="email"
+                      autocomplete="email"
+                      :placeholder="tr('name@example.com', 'name@example.com')"
+                    />
+                  </UFormField>
+                  <UFormField
+                    :label="tr('Password', 'รหัสผ่าน')"
+                    required
+                  >
+                    <UInput
+                      class="premium-input"
+                      icon="i-lucide-lock"
+                      type="password"
+                      autocomplete="new-password"
+                      :placeholder="tr('Create a password', 'Create a password')"
+                    />
+                  </UFormField>
+                  <UFormField
+                    :label="tr('Confirm password', 'ยืนยันรหัสผ่าน')"
+                    required
+                  >
+                    <UInput
+                      class="premium-input"
+                      icon="i-lucide-lock-keyhole"
+                      type="password"
+                      autocomplete="new-password"
+                      :placeholder="tr('Re-enter your password', 'Re-enter your password')"
+                    />
+                  </UFormField>
                 </div>
               </section>
 
@@ -247,43 +266,87 @@ const handleNamedFileChange = (event: Event, target: TutorDocumentKey) => {
                 </div>
                 <div class="grid gap-6">
                   <div class="grid gap-4 sm:grid-cols-4">
-                    <UInput
-                      class="premium-input"
-                      :placeholder="tr('First name *', 'ชื่อ *')"
-                    />
-                    <UInput
-                      class="premium-input"
-                      :placeholder="tr('Last name *', 'นามสกุล *')"
-                    />
-                    <UInput
-                      class="premium-input"
-                      :placeholder="tr('Nickname *', 'ชื่อเล่น *')"
-                    />
-                    <USelect
-                      class="premium-input"
-                      :items="genders"
-                      :placeholder="tr('Gender *', 'เพศ *')"
-                    />
+                    <UFormField
+                      :label="tr('First name', 'ชื่อ')"
+                      required
+                    >
+                      <UInput
+                        class="premium-input"
+                        autocomplete="given-name"
+                        :placeholder="tr('Enter first name', 'Enter first name')"
+                      />
+                    </UFormField>
+                    <UFormField
+                      :label="tr('Last name', 'นามสกุล')"
+                      required
+                    >
+                      <UInput
+                        class="premium-input"
+                        autocomplete="family-name"
+                        :placeholder="tr('Enter last name', 'Enter last name')"
+                      />
+                    </UFormField>
+                    <UFormField
+                      :label="tr('Nickname', 'ชื่อเล่น')"
+                      required
+                    >
+                      <UInput
+                        class="premium-input"
+                        :placeholder="tr('Enter nickname', 'Enter nickname')"
+                      />
+                    </UFormField>
+                    <UFormField
+                      :label="tr('Gender', 'เพศ')"
+                      required
+                    >
+                      <USelect
+                        class="premium-input"
+                        :items="genders"
+                        :placeholder="tr('Select gender', 'Select gender')"
+                      />
+                    </UFormField>
                   </div>
                   <div class="grid gap-4 sm:grid-cols-2">
-                    <UInput
-                      class="premium-input"
-                      size="xl"
-                      icon="i-lucide-smartphone"
-                      :placeholder="tr('Mobile *', 'โทรศัพท์ *')"
-                    />
-                    <UInput
-                      class="premium-input"
-                      size="xl"
-                      icon="i-lucide-message-circle"
-                      :placeholder="tr('Line ID *', 'ไลน์ไอดี *')"
-                    />
+                    <UFormField
+                      :label="tr('Mobile', 'โทรศัพท์')"
+                      required
+                    >
+                      <UInput
+                        class="premium-input"
+                        size="xl"
+                        icon="i-lucide-smartphone"
+                        type="tel"
+                        autocomplete="tel"
+                        :placeholder="tr('08x-xxx-xxxx', '08x-xxx-xxxx')"
+                      />
+                    </UFormField>
+                    <UFormField
+                      :label="tr('Line ID', 'ไลน์ไอดี')"
+                      required
+                    >
+                      <UInput
+                        class="premium-input"
+                        size="xl"
+                        icon="i-lucide-message-circle"
+                        :placeholder="tr('Enter Line ID', 'Enter Line ID')"
+                      />
+                    </UFormField>
                   </div>
-                  <UTextarea
-                    class="premium-input"
-                    :rows="2"
-                    :placeholder="tr('Address *', 'ที่อยู่ *')"
-                  />
+                  <UFormField
+                    :label="tr('Address', 'ที่อยู่')"
+                    required
+                  >
+                    <UTextarea
+                      class="address-textarea"
+                      variant="none"
+                      :ui="{
+                        root: 'w-full rounded-[1.5rem]',
+                        base: 'min-h-14 resize-none rounded-[1.5rem] bg-transparent px-4 py-3 text-sm leading-5 outline-none ring-0 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0'
+                      }"
+                      :rows="2"
+                      :placeholder="tr('House number, street, building, or landmark', 'House number, street, building, or landmark')"
+                    />
+                  </UFormField>
                 </div>
               </section>
 
@@ -299,26 +362,46 @@ const handleNamedFileChange = (event: Event, target: TutorDocumentKey) => {
                 </div>
                 <div class="grid gap-8">
                   <div class="grid gap-4 sm:grid-cols-2">
-                    <USelect
-                      class="premium-input"
-                      :items="degreeOptions"
-                      :placeholder="tr('Degree *', 'ระดับการศึกษา *')"
-                    />
-                    <UInput
-                      class="premium-input"
-                      icon="i-lucide-building-2"
-                      :placeholder="tr('University *', 'มหาวิทยาลัย *')"
-                    />
+                    <UFormField
+                      :label="tr('Degree', 'ระดับการศึกษา')"
+                      required
+                    >
+                      <USelect
+                        class="premium-input"
+                        :items="degreeOptions"
+                        :placeholder="tr('Select degree', 'Select degree')"
+                      />
+                    </UFormField>
+                    <UFormField
+                      :label="tr('University', 'มหาวิทยาลัย')"
+                      required
+                    >
+                      <UInput
+                        class="premium-input"
+                        icon="i-lucide-building-2"
+                        :placeholder="tr('Enter university name', 'Enter university name')"
+                      />
+                    </UFormField>
                   </div>
                   <div class="grid gap-4 sm:grid-cols-2">
-                    <UInput
-                      class="premium-input"
-                      :placeholder="tr('Faculty *', 'คณะ *')"
-                    />
-                    <UInput
-                      class="premium-input"
-                      :placeholder="tr('Major *', 'สาขา *')"
-                    />
+                    <UFormField
+                      :label="tr('Faculty', 'คณะ')"
+                      required
+                    >
+                      <UInput
+                        class="premium-input"
+                        :placeholder="tr('Enter faculty', 'Enter faculty')"
+                      />
+                    </UFormField>
+                    <UFormField
+                      :label="tr('Major', 'สาขา')"
+                      required
+                    >
+                      <UInput
+                        class="premium-input"
+                        :placeholder="tr('Enter major', 'Enter major')"
+                      />
+                    </UFormField>
                   </div>
                 </div>
               </section>
@@ -335,22 +418,39 @@ const handleNamedFileChange = (event: Event, target: TutorDocumentKey) => {
                 </div>
                 <div class="grid gap-6">
                   <div class="grid gap-4 sm:grid-cols-3">
-                    <UTextarea
-                      class="premium-input sm:col-span-2"
-                      :rows="3"
-                      :placeholder="tr('Experience... *', 'ประสบการณ์สอน... *')"
-                    />
+                    <UFormField
+                      :label="tr('Teaching experience', 'ประสบการณ์สอน')"
+                      required
+                      class="sm:col-span-2"
+                    >
+                      <UTextarea
+                        class="premium-input"
+                        :rows="3"
+                        :placeholder="tr('Describe your teaching experience and strengths', 'Describe your teaching experience and strengths')"
+                      />
+                    </UFormField>
                     <div class="grid gap-4">
-                      <UInput
-                        class="premium-input"
-                        icon="i-lucide-badge-dollar-sign"
-                        :placeholder="tr('Hourly rate *', 'ราคาต่อชั่วโมง *')"
-                      />
-                      <USelect
-                        class="premium-input"
-                        :items="teachingModes"
-                        :placeholder="tr('Mode *', 'รูปแบบการสอน *')"
-                      />
+                      <UFormField
+                        :label="tr('Hourly rate', 'ราคาต่อชั่วโมง')"
+                        required
+                      >
+                        <UInput
+                          class="premium-input"
+                          icon="i-lucide-badge-dollar-sign"
+                          type="number"
+                          :placeholder="tr('Example: 500', 'Example: 500')"
+                        />
+                      </UFormField>
+                      <UFormField
+                        :label="tr('Teaching mode', 'รูปแบบการสอน')"
+                        required
+                      >
+                        <USelect
+                          class="premium-input"
+                          :items="teachingModes"
+                          :placeholder="tr('Select teaching mode', 'Select teaching mode')"
+                        />
+                      </UFormField>
                     </div>
                   </div>
                 </div>
@@ -367,26 +467,31 @@ const handleNamedFileChange = (event: Event, target: TutorDocumentKey) => {
                   </h2>
                 </div>
                 <div class="grid gap-6">
-                  <label class="flex cursor-pointer items-center justify-between rounded-2xl border border-dashed border-sky-200 bg-sky-50/20 p-5 transition-all hover:bg-white">
-                    <input
-                      type="file"
-                      class="sr-only"
-                      @change="handleNamedFileChange($event, 'idCard')"
-                    >
-                    <div class="flex items-center gap-3">
-                      <UIcon
-                        name="i-lucide-id-card"
-                        class="size-6 text-primary"
+                  <UFormField
+                    :label="tr('ID card', 'บัตรประชาชน')"
+                    required
+                  >
+                    <label class="flex cursor-pointer items-center justify-between rounded-2xl border border-dashed border-sky-200 bg-sky-50/20 p-5 transition-all hover:bg-white">
+                      <input
+                        type="file"
+                        class="sr-only"
+                        @change="handleNamedFileChange($event, 'idCard')"
+                      >
+                      <div class="flex items-center gap-3">
+                        <UIcon
+                          name="i-lucide-id-card"
+                          class="size-6 text-primary"
+                        />
+                        <span class="truncate text-sm font-bold text-slate-700">{{ idCardFileName || tr('Upload JPG, PNG, or PDF', 'Upload JPG, PNG, or PDF') }}</span>
+                      </div>
+                      <UBadge
+                        label="Required"
+                        size="sm"
+                        variant="subtle"
+                        class="rounded-full bg-brand-100 text-brand-700"
                       />
-                      <span class="text-sm font-bold text-slate-700 truncate">{{ idCardFileName || tr('Upload ID Card *', 'อัปโหลดบัตรประชาชน *') }}</span>
-                    </div>
-                    <UBadge
-                      label="Required"
-                      size="sm"
-                      variant="subtle"
-                      class="rounded-full bg-brand-100 text-brand-700"
-                    />
-                  </label>
+                    </label>
+                  </UFormField>
                   <div class="grid gap-6 max-w-2xl mx-auto w-full text-center">
                     <label class="inline-flex cursor-pointer items-start gap-3 text-left">
                       <input
@@ -399,8 +504,8 @@ const handleNamedFileChange = (event: Event, target: TutorDocumentKey) => {
                     </label>
                     <UButton
                       :label="tr('Submit Application', 'ส่งใบสมัครติวเตอร์')"
-                      size="xl"
-                      class="rounded-full px-16 py-6 text-lg font-black shadow-premium-md"
+                      size="lg"
+                      class="mx-auto w-full max-w-64 justify-center rounded-full px-8 py-3 text-sm font-black shadow-premium-md"
                     />
                   </div>
                 </div>
@@ -412,3 +517,37 @@ const handleNamedFileChange = (event: Event, target: TutorDocumentKey) => {
     </UContainer>
   </div>
 </template>
+
+<style scoped>
+.address-textarea {
+  width: 100%;
+  border-radius: 1.5rem;
+  background: rgb(255 255 255);
+  box-shadow: inset 0 0 0 1px rgb(186 230 253);
+  transition: box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.address-textarea:focus-within {
+  box-shadow:
+    inset 0 0 0 2px rgb(14 165 233),
+    0 0 0 4px rgb(14 165 233 / 0.24);
+}
+
+.address-textarea :deep(textarea) {
+  width: 100%;
+  resize: none;
+  border: 0 !important;
+  border-radius: 1.5rem;
+  background: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.address-textarea :deep(textarea:focus),
+.address-textarea :deep(textarea:focus-visible) {
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+</style>

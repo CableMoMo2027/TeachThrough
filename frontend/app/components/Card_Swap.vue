@@ -11,7 +11,7 @@
       v-for="(_, index) in 3"
       :key="index"
       ref="cardRefs"
-      class="card-swap-card absolute top-1/2 left-1/2 overflow-hidden rounded-2xl border border-white/80 bg-black outline outline-1 outline-offset-2 outline-primary/30 shadow-2xl shadow-neutral-900/20 ring-1 ring-neutral-950/10 [transform-style:preserve-3d] [will-change:transform] [backface-visibility:hidden]"
+      class="card-swap-card absolute top-1/2 left-1/2 overflow-hidden rounded-xl border border-white/80 bg-sky-50/95 outline outline-1 outline-offset-2 outline-primary/30 shadow-2xl shadow-neutral-900/20 ring-1 ring-neutral-950/10 [transform-style:preserve-3d] [will-change:transform] [backface-visibility:hidden]"
       :style="{
         width: typeof width === 'number' ? `${width}px` : width,
         height: typeof height === 'number' ? `${height}px` : height

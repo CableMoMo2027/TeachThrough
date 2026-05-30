@@ -126,6 +126,7 @@
         <div :class="`flex w-full ${currentStep !== 1 ? 'justify-between' : 'justify-end'}`">
           <button
             v-if="currentStep !== 1"
+            type="button"
             :disabled="backButtonProps?.disabled"
             :class="`cursor-pointer rounded-full border border-sky-100 bg-white px-3 py-1.5 text-sm font-medium text-slate-500 transition-all duration-[350ms] hover:border-primary/40 hover:bg-sky-50 hover:text-primary ${currentStep === 1 ? 'opacity-50 cursor-not-allowed' : ''}`"
             v-bind="backButtonProps"
@@ -134,6 +135,7 @@
             {{ backButtonText }}
           </button>
           <button
+            type="button"
             :disabled="nextButtonProps?.disabled"
             :class="`flex cursor-pointer items-center justify-center rounded-full border-none bg-primary px-4 py-1.5 text-sm font-semibold tracking-tight text-white shadow-sm shadow-sky-200 transition-all duration-[350ms] hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50`"
             @click="isLastStep ? handleComplete() : handleNext()"
@@ -167,6 +169,8 @@ interface StepperProps {
   initialStep?: number
   onStepChange?: (step: number) => void
   onFinalStepCompleted?: () => void
+  onBeforeNext?: (step: number) => boolean | Promise<boolean>
+  onBeforeComplete?: () => boolean | Promise<boolean>
   stepCircleContainerClassName?: string
   stepContainerClassName?: string
   contentClassName?: string
@@ -187,6 +191,8 @@ const props = withDefaults(defineProps<StepperProps>(), {
   initialStep: 1,
   onStepChange: () => {},
   onFinalStepCompleted: () => {},
+  onBeforeNext: () => true,
+  onBeforeComplete: () => true,
   stepCircleContainerClassName: '',
   stepContainerClassName: '',
   contentClassName: '',
@@ -295,12 +301,18 @@ const handleBack = () => {
   updateStep(currentStep.value - 1)
 }
 
-const handleNext = () => {
+const handleNext = async () => {
+  const canProceed = await props.onBeforeNext?.(currentStep.value)
+  if (!canProceed) return
+
   direction.value = 1
   updateStep(currentStep.value + 1)
 }
 
-const handleComplete = () => {
+const handleComplete = async () => {
+  const canComplete = await props.onBeforeComplete?.()
+  if (!canComplete) return
+
   isCompleted.value = true
   props.onFinalStepCompleted?.()
 }

@@ -4,6 +4,7 @@ const { tr, pick } = useAppLocale()
 
 const mouseX = ref(50)
 const mouseY = ref(50)
+const isBookingOpen = ref(false)
 
 const handleMouseMove = (e: MouseEvent) => {
   const { clientX, clientY, currentTarget } = e
@@ -30,6 +31,14 @@ const schedule = computed(() => pick(
   ['Mon 18:00', 'Wed 19:30', 'Sat 10:00', 'Sun 14:00'],
   ['จันทร์ 18:00', 'พุธ 19:30', 'เสาร์ 10:00', 'อาทิตย์ 14:00']
 ))
+useSeoMeta({
+  title: () => `${tutor.value.name} | TeachThrough Tutor`,
+  description: () => `${tutor.value.name}: ${tutor.value.title}. ${tutor.value.rating} rating, ${tutor.value.price}/hr.`,
+  ogTitle: () => `${tutor.value.name} | TeachThrough Tutor`,
+  ogDescription: () => tutor.value.about,
+  ogImage: () => tutor.value.image,
+  twitterCard: 'summary_large_image'
+})
 </script>
 
 <template>
@@ -281,6 +290,7 @@ const schedule = computed(() => pick(
                   size="xl"
                   block
                   class="rounded-full font-bold shadow-premium-md transition-all hover:scale-[1.02] active:scale-[0.98]"
+                  @click="isBookingOpen = true"
                 />
                 <UButton
                   :label="tr('Message Tutor', 'ติดต่อสอบถาม')"
@@ -310,5 +320,11 @@ const schedule = computed(() => pick(
         </aside>
       </div>
     </UContainer>
+
+    <BookingModal
+      v-model:open="isBookingOpen"
+      :tutor-name="tutor.name"
+      :price="tutor.price"
+    />
   </div>
 </template>

@@ -23,7 +23,7 @@ import CardSwap from '~/components/Card_Swap.vue'
           class="hidden opacity-95 md:block"
         >
           <template #card-0>
-            <div class="flex h-full flex-col justify-between rounded-2xl p-6 text-white">
+            <div class="flex h-full flex-col justify-between rounded-xl bg-gradient-to-br from-sky-500 via-sky-600 to-blue-700 p-6 text-white">
               <div>
                 <div class="mb-4 grid size-11 place-items-center rounded-lg bg-white/15">
                   <UIcon
@@ -45,7 +45,7 @@ import CardSwap from '~/components/Card_Swap.vue'
           </template>
 
           <template #card-1>
-            <div class="flex h-full flex-col justify-between rounded-2xl bg-primary p-6 text-white">
+            <div class="flex h-full flex-col justify-between rounded-xl bg-gradient-to-br from-cyan-400 via-primary to-teal-600 p-6 text-white">
               <div>
                 <div class="mb-4 grid size-11 place-items-center rounded-lg bg-white/20">
                   <UIcon
@@ -67,22 +67,22 @@ import CardSwap from '~/components/Card_Swap.vue'
           </template>
 
           <template #card-2>
-            <div class="flex h-full flex-col justify-between rounded-2xl bg-white p-6 text-highlighted">
+            <div class="flex h-full flex-col justify-between rounded-xl bg-gradient-to-br from-violet-500 via-indigo-500 to-slate-900 p-6 text-white">
               <div>
-                <div class="mb-4 grid size-11 place-items-center rounded-lg bg-primary/10 text-primary">
+                <div class="mb-4 grid size-11 place-items-center rounded-lg bg-white/20 text-white">
                   <UIcon
                     name="i-lucide-star"
                     class="size-6"
                   />
                 </div>
-                <p class="text-sm text-muted">
+                <p class="text-sm text-white/70">
                   Parent Review
                 </p>
                 <p class="mt-2 text-2xl font-semibold">
                   4.9 rating
                 </p>
               </div>
-              <p class="text-sm leading-6 text-muted">
+              <p class="text-sm leading-6 text-white/75">
                 Find teachers with proven experience and trusted feedback.
               </p>
             </div>
