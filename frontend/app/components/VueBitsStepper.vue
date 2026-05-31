@@ -171,6 +171,7 @@ interface StepperProps {
   onFinalStepCompleted?: () => void
   onBeforeNext?: (step: number) => boolean | Promise<boolean>
   onBeforeComplete?: () => boolean | Promise<boolean>
+  onBeforeStepChange?: (targetStep: number, currentStep: number) => boolean | Promise<boolean>
   stepCircleContainerClassName?: string
   stepContainerClassName?: string
   contentClassName?: string
@@ -193,6 +194,7 @@ const props = withDefaults(defineProps<StepperProps>(), {
   onFinalStepCompleted: () => {},
   onBeforeNext: () => true,
   onBeforeComplete: () => true,
+  onBeforeStepChange: () => true,
   stepCircleContainerClassName: '',
   stepContainerClassName: '',
   contentClassName: '',
@@ -249,17 +251,23 @@ const getStepContentExit = () => ({
   opacity: 0
 })
 
-const handleStepClick = (step: number) => {
+const handleStepClick = async (step: number) => {
   if (isCompleted.value && props.lockOnComplete) return
   if (!props.disableStepIndicators) {
+    const canChange = await props.onBeforeStepChange?.(step, currentStep.value)
+    if (!canChange) return
+
     direction.value = step > currentStep.value ? 1 : -1
     updateStep(step)
   }
 }
 
-const handleCustomStepClick = (clicked: number) => {
+const handleCustomStepClick = async (clicked: number) => {
   if (isCompleted.value && props.lockOnComplete) return
   if (clicked !== currentStep.value && !props.disableStepIndicators) {
+    const canChange = await props.onBeforeStepChange?.(clicked, currentStep.value)
+    if (!canChange) return
+
     direction.value = clicked > currentStep.value ? 1 : -1
     updateStep(clicked)
   }
@@ -292,6 +300,7 @@ const observeContentHeight = () => {
 
 const updateStep = (newStep: number) => {
   if (newStep >= 1 && newStep <= totalSteps.value) {
+    direction.value = newStep > currentStep.value ? 1 : -1
     currentStep.value = newStep
   }
 }
@@ -345,5 +354,9 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   contentResizeObserver?.disconnect()
+})
+
+defineExpose({
+  goToStep: updateStep
 })
 </script>

@@ -24,63 +24,63 @@ const { tr } = useAppLocale()
             name="i-lucide-user-round"
             class="size-4"
           />
-          {{ tr('Basic information', 'Basic information') }}
+          {{ tr('Basic information', 'ข้อมูลพื้นฐาน') }}
         </p>
         <p class="form-helper">
-          {{ tr('Enter your legal name and personal details for verification.', 'Enter your legal name and personal details for verification.') }}
+          {{ tr('Enter your legal name and personal details for verification.', 'กรอกชื่อจริงและข้อมูลส่วนตัวสำหรับการตรวจสอบ') }}
         </p>
       </div>
       <div class="grid gap-3">
         <UFormField
           name="firstName"
-          :label="tr('First name', 'First name')"
+          :label="tr('First name', 'ชื่อ')"
           required
         >
           <UInput
             v-model="state.firstName"
             class="premium-input"
             autocomplete="given-name"
-            :placeholder="tr('Enter your first name', 'Enter your first name')"
+            :placeholder="tr('Enter your first name', 'กรอกชื่อ')"
           />
         </UFormField>
         <UFormField
           name="lastName"
-          :label="tr('Last name', 'Last name')"
+          :label="tr('Last name', 'นามสกุล')"
           required
         >
           <UInput
             v-model="state.lastName"
             class="premium-input"
             autocomplete="family-name"
-            :placeholder="tr('Enter your last name', 'Enter your last name')"
+            :placeholder="tr('Enter your last name', 'กรอกนามสกุล')"
           />
         </UFormField>
         <UFormField
           name="nickname"
-          :label="tr('Nickname', 'Nickname')"
+          :label="tr('Nickname', 'ชื่อเล่น')"
           required
         >
           <UInput
             v-model="state.nickname"
             class="premium-input"
-            :placeholder="tr('Enter your nickname', 'Enter your nickname')"
+            :placeholder="tr('Enter your nickname', 'กรอกชื่อเล่น')"
           />
         </UFormField>
         <UFormField
           name="gender"
-          :label="tr('Gender', 'Gender')"
+          :label="tr('Gender', 'เพศ')"
           required
         >
           <USelect
             v-model="state.gender"
             class="premium-input"
             :items="genders"
-            :placeholder="tr('Select gender', 'Select gender')"
+            :placeholder="tr('Select gender', 'เลือกเพศ')"
           />
         </UFormField>
         <UFormField
           name="birthDate"
-          :label="tr('Birth date', 'Birth date')"
+          :label="tr('Birth date', 'วันเกิด')"
           required
         >
           <UPopover v-model:open="isBirthDateOpen">
@@ -94,7 +94,7 @@ const { tr } = useAppLocale()
                 birthDateLabel ? 'text-highlighted' : 'text-muted'
               ]"
             >
-              {{ birthDateLabel || tr('Select birth date', 'Select birth date') }}
+              {{ birthDateLabel || tr('Select birth date', 'เลือกวันเกิด') }}
             </UButton>
 
             <template #content>
@@ -118,16 +118,16 @@ const { tr } = useAppLocale()
             name="i-lucide-contact-round"
             class="size-4"
           />
-          {{ tr('Contact information', 'Contact information') }}
+          {{ tr('Contact information', 'ข้อมูลติดต่อ') }}
         </p>
         <p class="form-helper">
-          {{ tr('Students and parents will not see private contact details before approval.', 'Students and parents will not see private contact details before approval.') }}
+          {{ tr('Students and parents will not see private contact details before approval.', 'ผู้เรียนและผู้ปกครองจะไม่เห็นข้อมูลติดต่อส่วนตัวก่อนผ่านการอนุมัติ') }}
         </p>
       </div>
       <div class="grid gap-3">
         <UFormField
           name="mobile"
-          :label="tr('Mobile number', 'Mobile number')"
+          :label="tr('Mobile number', 'เบอร์โทรศัพท์')"
           required
         >
           <UInput
@@ -142,31 +142,31 @@ const { tr } = useAppLocale()
         </UFormField>
         <UFormField
           name="lineId"
-          :label="tr('Line ID', 'Line ID')"
+          :label="tr('Line ID', 'ไลน์ไอดี')"
           required
         >
           <UInput
             v-model="state.lineId"
             class="premium-input"
             icon="i-lucide-message-circle"
-            :placeholder="tr('Enter your Line ID', 'Enter your Line ID')"
+            :placeholder="tr('Enter your Line ID', 'กรอกไลน์ไอดี')"
           />
         </UFormField>
         <UFormField
           name="province"
-          :label="tr('Province', 'Province')"
+          :label="tr('Province', 'จังหวัด')"
           required
         >
           <USelect
             v-model="state.province"
             class="premium-input"
             :items="provinces"
-            :placeholder="tr('Select province', 'Select province')"
+            :placeholder="tr('Select province', 'เลือกจังหวัด')"
           />
         </UFormField>
         <UFormField
           name="address"
-          :label="tr('Address', 'Address')"
+          :label="tr('Address', 'ที่อยู่')"
           required
         >
           <UTextarea
@@ -174,29 +174,29 @@ const { tr } = useAppLocale()
             class="premium-input address-focus-outline"
             :rows="2"
             autocomplete="street-address"
-            :placeholder="tr('House number, street, building, or landmark', 'House number, street, building, or landmark')"
+            :placeholder="tr('House number, street, building, or landmark', 'บ้านเลขที่ ถนน อาคาร หรือจุดสังเกต')"
           />
         </UFormField>
         <UFormField
           name="subDistrict"
-          :label="tr('Sub-district', 'Sub-district')"
+          :label="tr('Sub-district', 'แขวง/ตำบล')"
           required
         >
           <UInput
             v-model="state.subDistrict"
             class="premium-input"
-            :placeholder="tr('Enter sub-district', 'Enter sub-district')"
+            :placeholder="tr('Enter sub-district', 'กรอกแขวง/ตำบล')"
           />
         </UFormField>
         <UFormField
           name="district"
-          :label="tr('District', 'District')"
+          :label="tr('District', 'เขต/อำเภอ')"
           required
         >
           <UInput
             v-model="state.district"
             class="premium-input"
-            :placeholder="tr('Enter district', 'Enter district')"
+            :placeholder="tr('Enter district', 'กรอกเขต/อำเภอ')"
           />
         </UFormField>
       </div>

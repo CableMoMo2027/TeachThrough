@@ -22,39 +22,39 @@ const { tr } = useAppLocale()
             name="i-lucide-school"
             class="size-4"
           />
-          {{ tr('High school background', 'High school background') }}
+          {{ tr('High school background', 'ประวัติระดับมัธยมศึกษา') }}
         </p>
         <p class="form-helper">
-          {{ tr('Add your latest high school information.', 'Add your latest high school information.') }}
+          {{ tr('Add your latest high school information.', 'กรอกข้อมูลระดับมัธยมศึกษาล่าสุดของคุณ') }}
         </p>
       </div>
       <div class="grid gap-3">
         <UFormField
           name="highSchoolName"
-          :label="tr('High school name', 'High school name')"
+          :label="tr('High school name', 'ชื่อโรงเรียน')"
           required
         >
           <UInput
             v-model="state.highSchoolName"
             class="premium-input"
             icon="i-lucide-school"
-            :placeholder="tr('Enter school name', 'Enter school name')"
+            :placeholder="tr('Enter school name', 'กรอกชื่อโรงเรียน')"
           />
         </UFormField>
         <UFormField
           name="highSchoolMajor"
-          :label="tr('High school major', 'High school major')"
+          :label="tr('High school major', 'สายการเรียนระดับมัธยม')"
           required
         >
           <UInput
             v-model="state.highSchoolMajor"
             class="premium-input"
-            :placeholder="tr('Science, Arts, or other track', 'Science, Arts, or other track')"
+            :placeholder="tr('Science, Arts, or other track', 'วิทย์-คณิต ศิลป์ หรือสายอื่น ๆ')"
           />
         </UFormField>
         <UFormField
           name="highSchoolGpa"
-          :label="tr('High school GPA', 'High school GPA')"
+          :label="tr('High school GPA', 'เกรดเฉลี่ยระดับมัธยม')"
           required
         >
           <UInput
@@ -76,74 +76,74 @@ const { tr } = useAppLocale()
             name="i-lucide-building-2"
             class="size-4"
           />
-          {{ tr('University background', 'University background') }}
+          {{ tr('University background', 'ประวัติระดับมหาวิทยาลัย') }}
         </p>
         <p class="form-helper">
-          {{ tr('Use your current or most recent university record.', 'Use your current or most recent university record.') }}
+          {{ tr('Use your current or most recent university record.', 'ใช้ข้อมูลมหาวิทยาลัยปัจจุบันหรือข้อมูลล่าสุดของคุณ') }}
         </p>
       </div>
       <div class="grid gap-3">
         <UFormField
           name="degree"
-          :label="tr('University degree', 'University degree')"
+          :label="tr('University degree', 'ระดับการศึกษา')"
           required
         >
           <USelect
             v-model="state.degree"
             class="premium-input"
             :items="degreeOptions"
-            :placeholder="tr('Select degree', 'Select degree')"
+            :placeholder="tr('Select degree', 'เลือกระดับการศึกษา')"
           />
         </UFormField>
         <UFormField
           name="university"
-          :label="tr('University', 'University')"
+          :label="tr('University', 'มหาวิทยาลัย')"
           required
         >
           <UInput
             v-model="state.university"
             class="premium-input"
             icon="i-lucide-building-2"
-            :placeholder="tr('Enter university name', 'Enter university name')"
+            :placeholder="tr('Enter university name', 'กรอกชื่อมหาวิทยาลัย')"
           />
         </UFormField>
         <UFormField
           name="faculty"
-          :label="tr('Faculty', 'Faculty')"
+          :label="tr('Faculty', 'คณะ')"
           required
         >
           <UInput
             v-model="state.faculty"
             class="premium-input"
-            :placeholder="tr('Enter faculty', 'Enter faculty')"
+            :placeholder="tr('Enter faculty', 'กรอกคณะ')"
           />
         </UFormField>
         <UFormField
           name="major"
-          :label="tr('Major', 'Major')"
+          :label="tr('Major', 'สาขา')"
           required
         >
           <UInput
             v-model="state.major"
             class="premium-input"
-            :placeholder="tr('Enter major', 'Enter major')"
+            :placeholder="tr('Enter major', 'กรอกสาขา')"
           />
         </UFormField>
         <UFormField
           name="year"
-          :label="tr('Year', 'Year')"
+          :label="tr('Year', 'ชั้นปี')"
           required
         >
           <USelect
             v-model="state.year"
             class="premium-input"
             :items="yearOptions"
-            :placeholder="tr('Select year', 'Select year')"
+            :placeholder="tr('Select year', 'เลือกชั้นปี')"
           />
         </UFormField>
         <UFormField
           name="universityGpa"
-          :label="tr('University GPA', 'University GPA')"
+          :label="tr('University GPA', 'เกรดเฉลี่ยมหาวิทยาลัย')"
           required
         >
           <UInput
@@ -164,10 +164,10 @@ const { tr } = useAppLocale()
           name="i-lucide-badge-check"
           class="size-4"
         />
-        {{ tr('Additional education?', 'Additional education?') }}
+        {{ tr('Additional education?', 'มีวุฒิหรือเกียรติบัตรเพิ่มเติมไหม') }}
       </p>
       <p class="form-helper mt-1">
-        {{ tr('Add certificates or qualifications only if you have them.', 'Add certificates or qualifications only if you have them.') }}
+        {{ tr('Add certificates or qualifications only if you have them.', 'เพิ่มเกียรติบัตรหรือคุณวุฒิเพิ่มเติมเฉพาะกรณีที่มี') }}
       </p>
       <div class="mt-2 flex gap-6 text-xs text-muted">
         <label class="inline-flex cursor-pointer items-center gap-2 hover:text-primary">
@@ -178,7 +178,7 @@ const { tr } = useAppLocale()
             name="hasMoreEducation"
             class="accent-primary"
           >
-          {{ tr('Yes', 'Yes') }}
+          {{ tr('Yes', 'มี') }}
         </label>
         <label class="inline-flex cursor-pointer items-center gap-2 hover:text-primary">
           <input
@@ -188,7 +188,7 @@ const { tr } = useAppLocale()
             name="hasMoreEducation"
             class="accent-primary"
           >
-          {{ tr('No', 'No') }}
+          {{ tr('No', 'ไม่มี') }}
         </label>
       </div>
       <div
@@ -197,17 +197,17 @@ const { tr } = useAppLocale()
       >
         <UFormField
           name="additionalEducationName"
-          :label="tr('Certificate or qualification name', 'Certificate or qualification name')"
+          :label="tr('Certificate or qualification name', 'ชื่อเกียรติบัตรหรือคุณวุฒิ')"
         >
           <UInput
             v-model="state.additionalEducationName"
             class="premium-input"
-            :placeholder="tr('Example: IELTS, TOEIC, competition award', 'Example: IELTS, TOEIC, competition award')"
+            :placeholder="tr('Example: IELTS, TOEIC, competition award', 'เช่น IELTS, TOEIC, รางวัลการแข่งขัน')"
           />
         </UFormField>
         <UFormField
           name="additionalEducationFileName"
-          :label="tr('Supporting document', 'Supporting document')"
+          :label="tr('Supporting document', 'เอกสารประกอบ')"
         >
           <label class="grid min-h-14 cursor-pointer place-items-center rounded-[1rem] border border-dashed border-sky-200 bg-white/75 px-4 py-2 text-center transition-all hover:border-primary/60 hover:bg-primary/5">
             <input
@@ -221,7 +221,7 @@ const { tr } = useAppLocale()
                 name="i-lucide-upload"
                 class="size-5 shrink-0 text-primary"
               />
-              <span class="truncate">{{ additionalEducationFileName || tr('Upload supporting document', 'Upload supporting document') }}</span>
+              <span class="truncate">{{ additionalEducationFileName || tr('Upload supporting document', 'อัปโหลดเอกสารประกอบ') }}</span>
             </span>
           </label>
         </UFormField>

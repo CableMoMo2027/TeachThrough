@@ -1,21 +1,23 @@
 <script setup lang="ts">
 import { z } from 'zod'
+import { authEntryContent } from '~/utils/tutorOnboarding'
 
-const { tr } = useAppLocale()
+const { locale, isThai, tr, toggleLocale } = useAppLocale()
+const copy = authEntryContent.signUp
 
 const accountTypes = computed(() => [
   {
-    label: tr('Parent', 'Parent'),
+    label: tr(copy.accountTypes.parent.en, copy.accountTypes.parent.th),
     value: 'Parent Registration',
     icon: 'i-lucide-users'
   },
   {
-    label: tr('Student', 'Student'),
+    label: tr(copy.accountTypes.student.en, copy.accountTypes.student.th),
     value: 'Student Registration',
     icon: 'i-lucide-graduation-cap'
   },
   {
-    label: tr('Tutor', 'Tutor'),
+    label: tr(copy.accountTypes.tutor.en, copy.accountTypes.tutor.th),
     value: 'Tutor Registration',
     icon: 'i-lucide-presentation'
   }
@@ -74,13 +76,36 @@ const handleAccountTypeSelect = (value: string) => {
     }"
   >
     <template #header>
-      <div>
-        <h1 class="text-2xl font-semibold text-highlighted">
-          {{ tr('Sign Up', 'Sign Up') }}
-        </h1>
-        <p class="mt-1 text-sm text-dimmed">
-          {{ tr('Create an account as a parent, student, or tutor.', 'Create an account as a parent, student, or tutor.') }}
-        </p>
+      <div class="flex items-start justify-between gap-4">
+        <div class="min-w-0">
+          <p class="mb-2 text-[11px] font-black uppercase tracking-widest text-primary">
+            {{ tr(copy.eyebrow.en, copy.eyebrow.th) }}
+          </p>
+          <h1 class="text-2xl font-black tracking-tight text-highlighted">
+            <BlurText
+              :key="locale"
+              :text="tr(copy.title.en, copy.title.th)"
+              :animate-on-scroll="false"
+              :duration="0.5"
+              blur="4px"
+              :y="8"
+            />
+          </h1>
+          <p class="mt-1 text-sm font-medium leading-6 text-dimmed">
+            {{ tr(copy.description.en, copy.description.th) }}
+          </p>
+        </div>
+
+        <UButton
+          color="neutral"
+          variant="outline"
+          size="sm"
+          class="shrink-0 rounded-full font-black"
+          icon="i-lucide-languages"
+          :label="isThai ? 'TH' : 'EN'"
+          aria-label="Switch language"
+          @click="toggleLocale"
+        />
       </div>
     </template>
 
@@ -117,32 +142,32 @@ const handleAccountTypeSelect = (value: string) => {
         <div class="grid gap-4 sm:grid-cols-2">
           <UFormField
             name="firstName"
-            :label="tr('First name', 'First name')"
+            :label="tr(copy.fields.firstName.en, copy.fields.firstName.th)"
             required
           >
             <UInput
               v-model="signUpState.firstName"
               class="premium-input"
               autocomplete="given-name"
-              :placeholder="tr('Enter your first name', 'Enter your first name')"
+              :placeholder="tr(copy.placeholders.firstName.en, copy.placeholders.firstName.th)"
             />
           </UFormField>
           <UFormField
             name="lastName"
-            :label="tr('Last name', 'Last name')"
+            :label="tr(copy.fields.lastName.en, copy.fields.lastName.th)"
             required
           >
             <UInput
               v-model="signUpState.lastName"
               class="premium-input"
               autocomplete="family-name"
-              :placeholder="tr('Enter your last name', 'Enter your last name')"
+              :placeholder="tr(copy.placeholders.lastName.en, copy.placeholders.lastName.th)"
             />
           </UFormField>
         </div>
         <UFormField
           name="email"
-          :label="tr('Email address', 'Email address')"
+          :label="tr(copy.fields.email.en, copy.fields.email.th)"
           required
         >
           <UInput
@@ -151,20 +176,20 @@ const handleAccountTypeSelect = (value: string) => {
             icon="i-lucide-mail"
             type="email"
             autocomplete="email"
-            :placeholder="tr('name@example.com', 'name@example.com')"
+            :placeholder="tr(copy.placeholders.email.en, copy.placeholders.email.th)"
           />
         </UFormField>
         <div class="grid gap-4 sm:grid-cols-2">
           <UFormField
             name="password"
-            :label="tr('Password', 'Password')"
+            :label="tr(copy.fields.password.en, copy.fields.password.th)"
             required
           >
             <UInput
               v-model="signUpState.password"
               class="premium-input"
               icon="i-lucide-lock"
-              :placeholder="tr('Create a password', 'Create a password')"
+              :placeholder="tr(copy.placeholders.password.en, copy.placeholders.password.th)"
               :type="showPassword ? 'text' : 'password'"
               autocomplete="new-password"
             >
@@ -172,7 +197,7 @@ const handleAccountTypeSelect = (value: string) => {
                 <button
                   type="button"
                   class="inline-flex size-7 items-center justify-center rounded-full text-muted transition hover:bg-slate-100 hover:text-highlighted"
-                  :aria-label="showPassword ? tr('Hide password', 'Hide password') : tr('Show password', 'Show password')"
+                  :aria-label="showPassword ? tr(copy.actions.hidePassword.en, copy.actions.hidePassword.th) : tr(copy.actions.showPassword.en, copy.actions.showPassword.th)"
                   @click="showPassword = !showPassword"
                 >
                   <UIcon
@@ -185,14 +210,14 @@ const handleAccountTypeSelect = (value: string) => {
           </UFormField>
           <UFormField
             name="confirmPassword"
-            :label="tr('Confirm password', 'Confirm password')"
+            :label="tr(copy.fields.confirmPassword.en, copy.fields.confirmPassword.th)"
             required
           >
             <UInput
               v-model="signUpState.confirmPassword"
               class="premium-input"
               icon="i-lucide-lock-keyhole"
-              :placeholder="tr('Re-enter your password', 'Re-enter your password')"
+              :placeholder="tr(copy.placeholders.confirmPassword.en, copy.placeholders.confirmPassword.th)"
               :type="showConfirmPassword ? 'text' : 'password'"
               autocomplete="new-password"
             >
@@ -200,7 +225,7 @@ const handleAccountTypeSelect = (value: string) => {
                 <button
                   type="button"
                   class="inline-flex size-7 items-center justify-center rounded-full text-muted transition hover:bg-slate-100 hover:text-highlighted"
-                  :aria-label="showConfirmPassword ? tr('Hide password', 'Hide password') : tr('Show password', 'Show password')"
+                  :aria-label="showConfirmPassword ? tr(copy.actions.hidePassword.en, copy.actions.hidePassword.th) : tr(copy.actions.showPassword.en, copy.actions.showPassword.th)"
                   @click="showConfirmPassword = !showConfirmPassword"
                 >
                   <UIcon
@@ -213,7 +238,7 @@ const handleAccountTypeSelect = (value: string) => {
           </UFormField>
         </div>
         <UButton
-          :label="tr('Create Account', 'Create Account')"
+          :label="tr(copy.actions.submit.en, copy.actions.submit.th)"
           type="submit"
           block
           size="xl"
@@ -223,16 +248,16 @@ const handleAccountTypeSelect = (value: string) => {
 
       <div class="mx-auto grid w-full max-w-lg gap-6">
         <p class="text-center text-sm text-muted">
-          {{ tr('Already have an account?', 'Already have an account?') }}
+          {{ tr(copy.actions.existingPrompt.en, copy.actions.existingPrompt.th) }}
           <NuxtLink
             to="/auth/sign-in"
             class="font-bold text-primary hover:underline"
           >
-            {{ tr('Sign In', 'Sign In') }}
+            {{ tr(copy.actions.signIn.en, copy.actions.signIn.th) }}
           </NuxtLink>
         </p>
 
-        <USeparator :label="tr('or continue with', 'or continue with')" />
+        <USeparator :label="tr(copy.actions.separator.en, copy.actions.separator.th)" />
 
         <div class="mx-auto grid w-full max-w-lg gap-2 sm:grid-cols-3">
           <UButton

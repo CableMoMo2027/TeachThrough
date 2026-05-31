@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { TutorDocumentKey, TutorFormState } from '~/composables/useTutorForm'
+import { tutorDocumentPrivacyMessage } from '~/utils/tutorOnboarding'
 
 defineProps<{
   idCardFileName: string
@@ -20,17 +21,20 @@ const { tr } = useAppLocale()
           name="i-lucide-file-up"
           class="size-4"
         />
-        {{ tr('Verification documents', 'Verification documents') }}
+        {{ tr('Verification documents', 'เอกสารสำหรับตรวจสอบ') }}
       </p>
       <p class="mt-1 text-xs font-semibold leading-relaxed text-slate-600">
-        {{ tr('Accepted file types: JPG, PNG, PDF. Maximum size: 5MB per file.', 'Accepted file types: JPG, PNG, PDF. Maximum size: 5MB per file.') }}
+        {{ tr('Accepted file types: JPG, PNG, PDF. Maximum size: 5MB per file.', 'รองรับไฟล์ JPG, PNG, PDF ขนาดไม่เกิน 5MB ต่อไฟล์') }}
+      </p>
+      <p class="mt-2 rounded-[1rem] bg-white/70 px-3 py-2 text-xs font-semibold leading-relaxed text-slate-600 ring-1 ring-sky-100">
+        {{ tr(tutorDocumentPrivacyMessage, 'เอกสารเหล่านี้ใช้เพื่อตรวจสอบใบสมัครติวเตอร์เท่านั้น และจะไม่แสดงบนโปรไฟล์ติวเตอร์สาธารณะ') }}
       </p>
     </div>
 
     <div class="grid gap-3">
       <UFormField
         name="idCardFileName"
-        :label="tr('ID card or student card', 'ID card or student card')"
+        :label="tr('ID card or student card', 'บัตรประชาชนหรือบัตรนักศึกษา')"
         required
       >
         <label class="grid cursor-pointer gap-2 rounded-[1.5rem] border border-dashed border-sky-200 bg-sky-50/35 p-4 transition-all hover:border-primary/60 hover:bg-primary/5">
@@ -46,17 +50,18 @@ const { tr } = useAppLocale()
                 name="i-lucide-id-card"
                 class="size-5 shrink-0 text-primary"
               />
-              <span class="truncate">{{ idCardFileName || tr('Upload JPG, PNG, or PDF', 'Upload JPG, PNG, or PDF') }}</span>
+              <span class="truncate">{{ idCardFileName || tr('Upload JPG, PNG, or PDF', 'อัปโหลดไฟล์ JPG, PNG หรือ PDF') }}</span>
             </span>
-            <span class="text-[11px] font-bold text-primary">{{ tr('Upload', 'Upload') }}</span>
+            <span class="text-[11px] font-bold text-primary">{{ tr('Upload', 'อัปโหลด') }}</span>
           </span>
-          <span class="text-xs text-dimmed">{{ tr('One clear JPG, PNG, or PDF file.', 'One clear JPG, PNG, or PDF file.') }}</span>
+          <span class="text-xs text-dimmed">{{ tr('One clear JPG, PNG, or PDF file.', 'ใช้ไฟล์ JPG, PNG หรือ PDF ที่เห็นชัดเจน 1 ไฟล์') }}</span>
         </label>
       </UFormField>
 
       <UFormField
         name="transcriptFileName"
-        :label="tr('Transcript or education certificate', 'Transcript or education certificate')"
+        :label="tr('Transcript or education certificate', 'ใบแสดงผลการเรียนหรือหลักฐานการศึกษา')"
+        required
       >
         <label class="grid cursor-pointer gap-2 rounded-[1.5rem] border border-dashed border-sky-200 bg-white p-4 transition-all hover:border-primary/60 hover:bg-primary/5">
           <input
@@ -71,16 +76,17 @@ const { tr } = useAppLocale()
                 name="i-lucide-file-text"
                 class="size-5 shrink-0 text-primary"
               />
-              <span class="truncate">{{ transcriptFileName || tr('Upload transcript file', 'Upload transcript file') }}</span>
+              <span class="truncate">{{ transcriptFileName || tr('Upload transcript file', 'อัปโหลดใบแสดงผลการเรียน') }}</span>
             </span>
-            <span class="text-[11px] font-bold text-primary">{{ tr('Upload', 'Upload') }}</span>
+            <span class="text-[11px] font-bold text-primary">{{ tr('Upload', 'อัปโหลด') }}</span>
           </span>
+          <span class="text-xs text-dimmed">{{ tr('Required education proof for review.', 'ต้องใช้หลักฐานการศึกษาเพื่อประกอบการตรวจสอบ') }}</span>
         </label>
       </UFormField>
 
       <UFormField
         name="portfolioFileName"
-        :label="tr('Certificate or portfolio', 'Certificate or portfolio')"
+        :label="tr('Certificate or portfolio (optional)', 'เกียรติบัตรหรือพอร์ตโฟลิโอ (ไม่บังคับ)')"
       >
         <label class="grid cursor-pointer gap-2 rounded-[1.5rem] border border-dashed border-sky-200 bg-white p-4 transition-all hover:border-primary/60 hover:bg-primary/5">
           <input
@@ -95,9 +101,9 @@ const { tr } = useAppLocale()
                 name="i-lucide-folder-check"
                 class="size-5 shrink-0 text-primary"
               />
-              <span class="truncate">{{ portfolioFileName || tr('Upload certificate or portfolio file', 'Upload certificate or portfolio file') }}</span>
+              <span class="truncate">{{ portfolioFileName || tr('Upload certificate or portfolio file', 'อัปโหลดเกียรติบัตรหรือพอร์ตโฟลิโอ') }}</span>
             </span>
-            <span class="text-[11px] font-bold text-primary">{{ tr('Upload', 'Upload') }}</span>
+            <span class="text-[11px] font-bold text-primary">{{ tr('Upload', 'อัปโหลด') }}</span>
           </span>
         </label>
       </UFormField>
@@ -110,7 +116,7 @@ const { tr } = useAppLocale()
           type="checkbox"
           class="mt-0.5 accent-primary"
         >
-        <span>{{ tr('I agree to the tutor terms and confirm that the information is accurate.', 'I agree to the tutor terms and confirm that the information is accurate.') }}</span>
+        <span>{{ tr('I agree to the tutor terms and confirm that the information is accurate.', 'ฉันยอมรับเงื่อนไขสำหรับติวเตอร์และยืนยันว่าข้อมูลถูกต้อง') }}</span>
       </label>
     </UFormField>
   </div>

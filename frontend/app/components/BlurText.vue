@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { segmentGraphemes } from '~/utils/textSegmentation'
 
 interface Props {
   text: string
@@ -24,7 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const containerRef = ref<HTMLElement | null>(null)
-const words = computed(() => props.text.split(' '))
+const words = computed(() => props.text.split(' ').map(word => segmentGraphemes(word)))
 
 const initAnimation = () => {
   if (!containerRef.value || !import.meta.client) return
@@ -86,7 +87,7 @@ onMounted(() => {
       class="inline-block whitespace-nowrap mr-[0.25em]"
     >
       <span
-        v-for="(char, cIndex) in word.split('')"
+        v-for="(char, cIndex) in word"
         :key="cIndex"
         class="blur-char inline-block"
       >

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import ShinyText from '~/assets/animations/Text Animations/Shiny_Text.vue'
+import { tutorNavigationLabels } from '~/utils/tutorOnboarding'
 
-const { locale, isThai, toggleLocale } = useAppLocale()
+const { locale, isThai, tr, toggleLocale } = useAppLocale()
 
 const copy = computed(() => isThai.value
   ? {
@@ -69,7 +70,14 @@ useSeoMeta({
   twitterCard: 'summary_large_image'
 })
 
-const navItems = computed(() => copy.value.nav)
+const navItems = computed(() => copy.value.nav.map(item => ({
+  ...item,
+  label: item.to === '/find-tutors'
+    ? tr(tutorNavigationLabels.findTutors.en, tutorNavigationLabels.findTutors.th)
+    : item.to === '/become-a-tutor'
+      ? tr(tutorNavigationLabels.startTutorRegistration.en, tutorNavigationLabels.startTutorRegistration.th)
+      : item.label
+})))
 
 const handleLanguageToggle = () => {
   toggleLocale()
