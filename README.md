@@ -1,61 +1,111 @@
 # TeachThrough
 
-แพลตฟอร์มสำหรับค้นหาและเชื่อมต่อกับติวเตอร์ระดับพรีเมียม พัฒนาด้วย Nuxt.js และ Nuxt UI ภายใต้แนวคิดการออกแบบที่มุ่งเน้นความสวยงามระดับภาพยนตร์และความชัดเจนในการใช้งาน (Cinematic Narrative & Intelligent Clarity)
+TeachThrough is a premium tutor discovery and onboarding platform for parents, students, and tutors. The product focuses on trusted tutor profiles, clear learning choices, bilingual English/Thai entry flows, and a polished Nuxt UI experience.
 
-## ประสบการณ์การใช้งาน (UI/UX Experience)
+## Product Scope
 
-โครงการนี้ได้รับการออกแบบและพัฒนาให้มีความละเอียดประณีตในทุกจุดสัมผัส เพื่อสร้างประสบการณ์การใช้งานที่มีคุณภาพสูง:
+- **Find Tutors**: learners and families browse tutors by subject, level, price, and teaching style.
+- **Tutor Recruitment Page**: explains the value, expectations, and preparation required before becoming a tutor.
+- **Tutor Registration Form**: the focused stepper flow where prospective tutors submit the information required for a Tutor Application.
+- **Tutor Application**: the submitted record reviewed by the platform team before a Tutor Profile can become public.
+- **Pending Review**: the initial state after successful Tutor Registration.
 
-- **Cinematic Experience**: ระบบแอนิเมชันขั้นสูงโดยใช้ GSAP เพื่อสร้างเอฟเฟกต์ Parallax และการแสดงผลตัวอักษรแบบ Blur-to-Clear ที่นุ่มนวล
-- **Intelligent Interface**: การประยุกต์ใช้ Glassmorphism 2.0 ร่วมกับเอฟเฟกต์ Light-aware cards ที่ตอบสนองตามตำแหน่งของเมาส์บนวัสดุโปร่งแสง
-- **Modern Layout**: โครงสร้างแบบ Apple-inspired ที่เน้นความโปร่งสบาย (Spaciousness) และการจัดลำดับความสำคัญของเนื้อหาอย่างชัดเจน
-- **Seamless Navigation**: การสลับหน้าเว็บแบบไร้รอยต่อด้วย View Transitions API
-- **Visual Depth**: ระบบเงาแบบหลายชั้น (Premium Layered Shadows) และการจัดการสีด้วยระบบ OKLCH ทั่วทั้งโครงการ
+The Tutor Recruitment Page and Tutor Registration Form are intentionally separate. Recruitment explains and qualifies; registration collects application data.
 
-## ส่วนประกอบหลัก (Core Components)
+## Current Highlights
 
-- **BlurText**: แอนิเมชันสำหรับหัวข้อหลักที่เน้นความหรูหราและความนุ่มนวล
-- **CountUp**: ระบบแสดงตัวเลขสถิติที่เคลื่อนไหวอย่างต่อเนื่องเมื่อเลื่อนหน้าจอมาถึง
-- **FadeContent**: แอนิเมชันการนำเสนอเนื้อหาที่รองรับระบบ Stagger เพื่อลำดับการรับรู้ที่ชัดเจน
-- **SplitText**: แอนิเมชันตัวอักษรแบบ 3D สำหรับเมนูนำทางและระบบสลับภาษา
-- **Stable Brand Identity**: การรักษาเอกลักษณ์ของแบรนด์ "TeachThrough" ให้คงที่และมีความเป็นมืออาชีพตลอดเวลา
-- **Tutor Registration**: แบบฟอร์มสมัครสมาชิกสำหรับติวเตอร์ที่รวบรวมข้อมูลสำคัญไว้ในหน้าเดียวเพื่อความสะดวกในการกรอกข้อมูล
+- Nuxt 4 / Vue 3 frontend with Nuxt UI and Tailwind CSS.
+- Bilingual English/Thai app copy through the local `useAppLocale` helper.
+- Tutor Recruitment hero image remains language-independent.
+- Thai Tutor Recruitment heading supports proper wrapping and readable reveal timing.
+- `BlurText` uses grapheme-aware text segmentation so Thai tone marks stay attached to their base characters.
+- Auth entry pages support bilingual copy and wider, cleaner form layouts.
+- Tutor Registration uses a six-step flow: Account, Personal, Education, Teaching, Documents, Review.
+- Draft handling excludes sensitive fields such as passwords and uploaded files.
 
-## เทคโนโลยีที่เลือกใช้ (Tech Stack)
+## Tech Stack
 
 - **Framework**: Nuxt 4 / Vue 3
-- **UI Library**: Nuxt UI
-- **Animation Engine**: GSAP (GreenSock Animation Platform)
+- **UI**: Nuxt UI
 - **Styling**: Tailwind CSS
-- **Programming Language**: TypeScript
-- **Browser API**: View Transitions API
+- **Language**: TypeScript / JavaScript
+- **Validation**: Zod
+- **Animation**: GSAP
+- **Testing**: Node test runner
 
-## การเริ่มต้นใช้งาน (Getting Started)
+## Project Structure
 
-การรันโครงการในเครื่องคอมพิวเตอร์ของคุณ:
+```text
+/
+├── CONTEXT.md
+├── PRODUCT.md
+├── DESIGN.md
+├── docs/
+│   ├── adr/
+│   ├── agents/
+│   ├── issues/
+│   └── prd/
+├── frontend/
+│   ├── app/
+│   │   ├── components/
+│   │   ├── composables/
+│   │   ├── pages/
+│   │   └── utils/
+│   └── tests/
+└── supabase/
+```
 
-1. เข้าไปยังโฟลเดอร์หลักของโปรเจกต์
-   ```powershell
-   cd frontend
-   ```
+## Getting Started
 
-2. ติดตั้ง Dependencies
-   ```powershell
-   npm install
-   ```
+Install dependencies and run the frontend from the `frontend` directory:
 
-3. เริ่มต้นการทำงานในโหมดพัฒนา (Development Mode)
-   ```powershell
-   npm run dev
-   ```
+```powershell
+cd frontend
+npm install
+npm run dev
+```
 
-## สคริปต์ที่พร้อมใช้งาน (Available Scripts)
+The local dev server defaults to:
 
-- `npm run dev`: เริ่มต้น Development Server
-- `npm run build`: สร้างโปรเจกต์สำหรับ Production
-- `npm run preview`: พรีวิวโปรเจกต์ที่ทำการ Build แล้ว
-- `npm run lint`: ตรวจสอบมาตรฐานความถูกต้องของโค้ด
-- `npm run typecheck`: ตรวจสอบความถูกต้องของระบบ Type (TypeScript)
+```text
+http://localhost:3000
+```
 
----
-*ยกระดับการศึกษาด้วยการออกแบบที่เหนือระดับ (Impeccable Design)*
+## Available Scripts
+
+Run these from `frontend/`:
+
+```powershell
+npm run dev
+npm test
+npm run lint
+npm run typecheck
+npm run build
+npm run preview
+```
+
+- `npm run dev`: starts the Nuxt development server.
+- `npm test`: runs behavior-focused Node tests.
+- `npm run lint`: checks code style and lint rules.
+- `npm run typecheck`: runs Nuxt/Vue type checking.
+- `npm run build`: builds the production app.
+- `npm run preview`: previews the built production app locally.
+
+## Development Notes
+
+- Use domain terms from `CONTEXT.md` in issue titles, tests, and implementation notes.
+- Respect ADR 0001: Tutor Recruitment and Tutor Registration must remain separate.
+- Do not edit files inside `node_modules`; override behavior in app code or local components.
+- Prefer behavior tests through public interfaces, especially exports from `frontend/app/utils/`.
+- Keep bilingual UI copy concise enough for Thai and English layouts.
+- For Thai animated text, preserve grapheme clusters so tone marks and vowels render correctly.
+
+## Issue Tracker
+
+Issues and PRDs are tracked in GitHub Issues for:
+
+```text
+CableMoMo2027/TeachThrough
+```
+
+See `docs/agents/issue-tracker.md` for the repo's issue workflow.
